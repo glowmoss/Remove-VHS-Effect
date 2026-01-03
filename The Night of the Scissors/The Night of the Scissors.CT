@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Remove Chromatic"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{Game  : The Night of the Scissors.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+aobscanregion(Chrome,Tnots.ChromaticAberration:OnRenderImage,Tnots.ChromaticAberration:OnRenderImage+7C,D9 ? ? DE ? D9 ? ? ? C7 ? ? ? ? ? ? ? 89 ? ? 39 ? 8D ? ? E8 ? ? ? ? 0F)
+alloc(newmem,128,Chrome)
+
+registersymbol(Chrome Chrome_Orig CHR)
+label(return Chrome_Orig CHR)
+
+newmem:
+  fld dword ptr [CHR]
+  fmulp st(1),st(0)
+  jmp return
+
+Chrome_Orig:
+  readmem(Chrome,5)
+  //fld dword ptr [ebx+14]
+  //fmulp st(1),st(0)
+
+CHR:
+  dd 0
+
+Chrome:
+  jmp newmem
+return:
+
+[DISABLE]
+
+Chrome:
+  readmem(Chrome_Orig,5)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Tnots.ChromaticAberration:OnRenderImage+1a
+
+Tnots.SharpenPostProcessing:OnRenderImage+3b: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.SharpenPostProcessing:OnRenderImage+3f: C7 44 24 04 40 E4 10 26  - mov [esp+04],2610E440
+Tnots.SharpenPostProcessing:OnRenderImage+47: 89 04 24                 - mov [esp],eax
+Tnots.SharpenPostProcessing:OnRenderImage+4a: 39 00                    - cmp [eax],eax
+Tnots.SharpenPostProcessing:OnRenderImage+4c: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.SharpenPostProcessing:OnRenderImage+4f: E8 D4 FC FF FF           - call UnityEngine.Material:SetFloat
+Tnots.SharpenPostProcessing:OnRenderImage+54: 89 1C 24                 - mov [esp],ebx
+Tnots.SharpenPostProcessing:OnRenderImage+57: E8 2C FB FF FF           - call Tnots.PostProcess:get_Material
+Tnots.SharpenPostProcessing:OnRenderImage+5c: 89 44 24 08              - mov [esp+08],eax
+Tnots.SharpenPostProcessing:OnRenderImage+60: 8B 45 10                 - mov eax,[ebp+10]
+Tnots.SharpenPostProcessing:OnRenderImage+63: 89 44 24 04              - mov [esp+04],eax
+Tnots.SharpenPostProcessing:OnRenderImage+67: 8B 45 0C                 - mov eax,[ebp+0C]
+Tnots.SharpenPostProcessing:OnRenderImage+6a: 89 04 24                 - mov [esp],eax
+Tnots.SharpenPostProcessing:OnRenderImage+6d: 8B C0                    - mov eax,eax
+Tnots.SharpenPostProcessing:OnRenderImage+6f: E8 AC FD FF FF           - call UnityEngine.Graphics:Blit
+Tnots.SharpenPostProcessing:OnRenderImage+74: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.SharpenPostProcessing:OnRenderImage+77: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.SharpenPostProcessing:OnRenderImage+7a: 5B                       - pop ebx
+Tnots.SharpenPostProcessing:OnRenderImage+7b: C9                       - leave 
+Tnots.SharpenPostProcessing:OnRenderImage+7c: C3                       - ret 
+265F7395: 00 00                    - add [eax],al
+265F7397: 00 55 8B                 - add [ebp-75],dl
+Tnots.ChromaticAberration:OnRenderImage+2: EC                       - in al,dx
+Tnots.ChromaticAberration:OnRenderImage+3: 53                       - push ebx
+Tnots.ChromaticAberration:OnRenderImage+4: 83 EC 24                 - sub esp,24
+Tnots.ChromaticAberration:OnRenderImage+7: 8B 5D 08                 - mov ebx,[ebp+08]
+Tnots.ChromaticAberration:OnRenderImage+a: 89 1C 24                 - mov [esp],ebx
+Tnots.ChromaticAberration:OnRenderImage+d: 8B C0                    - mov eax,eax
+Tnots.ChromaticAberration:OnRenderImage+f: E8 F4 FA FF FF           - call Tnots.PostProcess:get_Material
+Tnots.ChromaticAberration:OnRenderImage+14: D9 05 F8 39 52 1E        - fld dword ptr [1E5239F8]
+// ---------- INJECTING HERE ----------
+Tnots.ChromaticAberration:OnRenderImage+1a: D9 43 14                 - fld dword ptr [ebx+14]
+// ---------- DONE INJECTING  ----------
+Tnots.ChromaticAberration:OnRenderImage+1d: DE C9                    - fmulp st(1),st(0)
+Tnots.ChromaticAberration:OnRenderImage+1f: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.ChromaticAberration:OnRenderImage+23: C7 44 24 04 60 F4 0E 26  - mov [esp+04],260EF460
+Tnots.ChromaticAberration:OnRenderImage+2b: 89 04 24                 - mov [esp],eax
+Tnots.ChromaticAberration:OnRenderImage+2e: 39 00                    - cmp [eax],eax
+Tnots.ChromaticAberration:OnRenderImage+30: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.ChromaticAberration:OnRenderImage+33: E8 70 FC FF FF           - call UnityEngine.Material:SetFloat
+Tnots.ChromaticAberration:OnRenderImage+38: 0F B6 43 18              - movzx eax,byte ptr [ebx+18]
+Tnots.ChromaticAberration:OnRenderImage+3c: 85 C0                    - test eax,eax
+Tnots.ChromaticAberration:OnRenderImage+3e: 74 26                    - je Tnots.ChromaticAberration:OnRenderImage+66
+Tnots.ChromaticAberration:OnRenderImage+40: 89 1C 24                 - mov [esp],ebx
+Tnots.ChromaticAberration:OnRenderImage+43: E8 C4 F9 FF FF           - call 265F6DA4
+Tnots.ChromaticAberration:OnRenderImage+48: D9 05 00 3A 52 1E        - fld dword ptr [1E523A00]
+Tnots.ChromaticAberration:OnRenderImage+4e: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.ChromaticAberration:OnRenderImage+52: C7 44 24 04 20 E4 10 26  - mov [esp+04],2610E420
+Tnots.ChromaticAberration:OnRenderImage+5a: 89 04 24                 - mov [esp],eax
+Tnots.ChromaticAberration:OnRenderImage+5d: 39 00                    - cmp [eax],eax
+Tnots.ChromaticAberration:OnRenderImage+5f: E8 B4 F9 FF FF           - call 265F6DB0
+Tnots.ChromaticAberration:OnRenderImage+64: EB 22                    - jmp Tnots.ChromaticAberration:OnRenderImage+88
+Tnots.ChromaticAberration:OnRenderImage+66: 89 1C 24                 - mov [esp],ebx
+Tnots.ChromaticAberration:OnRenderImage+69: 8B C0                    - mov eax,eax
+Tnots.ChromaticAberration:OnRenderImage+6b: E8 98 FA FF FF           - call Tnots.PostProcess:get_Material
+Tnots.ChromaticAberration:OnRenderImage+70: D9 EE                    - fldz 
+Tnots.ChromaticAberration:OnRenderImage+72: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.ChromaticAberration:OnRenderImage+76: C7 44 24 04 20 E4 10 26  - mov [esp+04],2610E420
+Tnots.ChromaticAberration:OnRenderImage+7e: 89 04 24                 - mov [esp],eax
+Tnots.ChromaticAberration:OnRenderImage+81: 39 00                    - cmp [eax],eax
+Tnots.ChromaticAberration:OnRenderImage+83: E8 20 FC FF FF           - call UnityEngine.Material:SetFloat
+Tnots.ChromaticAberration:OnRenderImage+88: 89 1C 24                 - mov [esp],ebx
+Tnots.ChromaticAberration:OnRenderImage+8b: E8 78 FA FF FF           - call Tnots.PostProcess:get_Material
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Remove Noise"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{Game  : The Night of the Scissors.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+aobscanregion(Noise,Tnots.Noise:OnRenderImage,Tnots.Noise:OnRenderImage+7C,D9 ? ? D9 ? ? ? C7 ? ? ? ? ? ? ? 89 ? ? 39 ? 8D ? ? E8 ? ? ? ? 89 ? ? E8 ? ? ? ? 89 ? ? ? 8B ? ? 89 ? ? ? 8B ? ? 89 ? ? 8B ? E8 ? ? ? ? 8D)
+alloc(newmem,128,Noise)
+
+registersymbol(Noise Noise_Orig NOI)
+label(return Noise_Orig NOI)
+
+newmem:
+  fld dword ptr [NOI]
+  fstp dword ptr [esp+08]
+  jmp return
+
+Noise_Orig:
+  readmem(Noise,7)
+  //fld dword ptr [ebx+18]
+  //fstp dword ptr [esp+08]
+
+NOI:
+  dd 0
+
+Noise:
+  jmp newmem
+  nop 2
+return:
+
+[DISABLE]
+
+Noise:
+  readmem(Noise_Orig,7)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Tnots.Noise:OnRenderImage+38
+
+Tnots.ChromaticAberration:OnRenderImage+9b: 8B 45 0C                 - mov eax,[ebp+0C]
+Tnots.ChromaticAberration:OnRenderImage+9e: 89 04 24                 - mov [esp],eax
+Tnots.ChromaticAberration:OnRenderImage+a1: 8B C0                    - mov eax,eax
+Tnots.ChromaticAberration:OnRenderImage+a3: E8 F8 FC FF FF           - call UnityEngine.Graphics:Blit
+Tnots.ChromaticAberration:OnRenderImage+a8: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.ChromaticAberration:OnRenderImage+ab: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.ChromaticAberration:OnRenderImage+ae: 5B                       - pop ebx
+Tnots.ChromaticAberration:OnRenderImage+af: C9                       - leave 
+Tnots.ChromaticAberration:OnRenderImage+b0: C3                       - ret 
+26A25869: 00 00                    - add [eax],al
+26A2586B: 00 00                    - add [eax],al
+26A2586D: 00 00                    - add [eax],al
+26A2586F: 00 55 8B                 - add [ebp-75],dl
+Tnots.Noise:OnRenderImage+2: EC                       - in al,dx
+Tnots.Noise:OnRenderImage+3: 53                       - push ebx
+Tnots.Noise:OnRenderImage+4: 83 EC 24                 - sub esp,24
+Tnots.Noise:OnRenderImage+7: 8B 5D 08                 - mov ebx,[ebp+08]
+Tnots.Noise:OnRenderImage+a: 89 1C 24                 - mov [esp],ebx
+Tnots.Noise:OnRenderImage+d: 8B C0                    - mov eax,eax
+Tnots.Noise:OnRenderImage+f: E8 3C FA FF FF           - call Tnots.PostProcess:get_Material
+Tnots.Noise:OnRenderImage+14: D9 43 14                 - fld dword ptr [ebx+14]
+Tnots.Noise:OnRenderImage+17: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.Noise:OnRenderImage+1b: C7 44 24 04 78 3F 4F 26  - mov [esp+04],264F3F78
+Tnots.Noise:OnRenderImage+23: 89 04 24                 - mov [esp],eax
+Tnots.Noise:OnRenderImage+26: 39 00                    - cmp [eax],eax
+Tnots.Noise:OnRenderImage+28: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.Noise:OnRenderImage+2b: E8 C0 FB FF FF           - call UnityEngine.Material:SetFloat
+Tnots.Noise:OnRenderImage+30: 89 1C 24                 - mov [esp],ebx
+Tnots.Noise:OnRenderImage+33: E8 18 FA FF FF           - call Tnots.PostProcess:get_Material
+// ---------- INJECTING HERE ----------
+Tnots.Noise:OnRenderImage+38: D9 43 18                 - fld dword ptr [ebx+18]
+Tnots.Noise:OnRenderImage+3b: D9 5C 24 08              - fstp dword ptr [esp+08]
+// ---------- DONE INJECTING  ----------
+Tnots.Noise:OnRenderImage+3f: C7 44 24 04 50 3F 4F 26  - mov [esp+04],264F3F50
+Tnots.Noise:OnRenderImage+47: 89 04 24                 - mov [esp],eax
+Tnots.Noise:OnRenderImage+4a: 39 00                    - cmp [eax],eax
+Tnots.Noise:OnRenderImage+4c: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.Noise:OnRenderImage+4f: E8 9C FB FF FF           - call UnityEngine.Material:SetFloat
+Tnots.Noise:OnRenderImage+54: 89 1C 24                 - mov [esp],ebx
+Tnots.Noise:OnRenderImage+57: E8 F4 F9 FF FF           - call Tnots.PostProcess:get_Material
+Tnots.Noise:OnRenderImage+5c: 89 44 24 08              - mov [esp+08],eax
+Tnots.Noise:OnRenderImage+60: 8B 45 10                 - mov eax,[ebp+10]
+Tnots.Noise:OnRenderImage+63: 89 44 24 04              - mov [esp+04],eax
+Tnots.Noise:OnRenderImage+67: 8B 45 0C                 - mov eax,[ebp+0C]
+Tnots.Noise:OnRenderImage+6a: 89 04 24                 - mov [esp],eax
+Tnots.Noise:OnRenderImage+6d: 8B C0                    - mov eax,eax
+Tnots.Noise:OnRenderImage+6f: E8 74 FC FF FF           - call UnityEngine.Graphics:Blit
+Tnots.Noise:OnRenderImage+74: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.Noise:OnRenderImage+77: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.Noise:OnRenderImage+7a: 5B                       - pop ebx
+Tnots.Noise:OnRenderImage+7b: C9                       - leave 
+Tnots.Noise:OnRenderImage+7c: C3                       - ret 
+26A258ED: 00 00                    - add [eax],al
+26A258EF: 00 55 8B                 - add [ebp-75],dl
+Tnots.VHSPostProcessEffect:OnRenderImage+2: EC                       - in al,dx
+Tnots.VHSPostProcessEffect:OnRenderImage+3: 53                       - push ebx
+Tnots.VHSPostProcessEffect:OnRenderImage+4: 83 EC 24                 - sub esp,24
+Tnots.VHSPostProcessEffect:OnRenderImage+7: 8B 5D 08                 - mov ebx,[ebp+08]
+Tnots.VHSPostProcessEffect:OnRenderImage+a: 89 1C 24                 - mov [esp],ebx
+Tnots.VHSPostProcessEffect:OnRenderImage+d: 8B C0                    - mov eax,eax
+Tnots.VHSPostProcessEffect:OnRenderImage+f: E8 BC F9 FF FF           - call Tnots.PostProcess:get_Material
+Tnots.VHSPostProcessEffect:OnRenderImage+14: 89 45 F4                 - mov [ebp-0C],eax
+Tnots.VHSPostProcessEffect:OnRenderImage+17: 8B 43 18                 - mov eax,[ebx+18]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Remove VHS Effect"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{Game  : The Night of the Scissors.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+aobscanregion(vhsremove,Tnots.VHSPostProcessEffect:OnRenderImage,Tnots.VHSPostProcessEffect:OnRenderImage+8C,D9 ? ? D9 ? ? ? C7 ? ? ? ? ? ? ? 89)
+alloc(newmem,128,vhsremove)
+
+registersymbol(vhsremove vhsremove_Orig vhsstop)
+label(return vhsremove_Orig vhsstop)
+
+newmem:
+  fld dword ptr [vhsstop]
+  fstp dword ptr [esp+08]
+  jmp return
+vhsremove_Orig:
+  readmem(vhsremove,7)
+  //fld dword ptr [ebx+1C]
+  //fstp dword ptr [esp+08]
+
+vhsstop:
+  dd 0
+
+vhsremove:
+  jmp newmem
+  nop 2
+return:
+
+[DISABLE]
+
+vhsremove:
+  readmem(vhsremove_Orig,7)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Tnots.VHSPostProcessEffect:OnRenderImage+48
+
+Tnots.Noise:OnRenderImage+74: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.Noise:OnRenderImage+77: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.Noise:OnRenderImage+7a: 5B                       - pop ebx
+Tnots.Noise:OnRenderImage+7b: C9                       - leave 
+Tnots.Noise:OnRenderImage+7c: C3                       - ret 
+270C74CD: 00 00                    - add [eax],al
+270C74CF: 00 55 8B                 - add [ebp-75],dl
+Tnots.VHSPostProcessEffect:OnRenderImage+2: EC                       - in al,dx
+Tnots.VHSPostProcessEffect:OnRenderImage+3: 53                       - push ebx
+Tnots.VHSPostProcessEffect:OnRenderImage+4: 83 EC 24                 - sub esp,24
+Tnots.VHSPostProcessEffect:OnRenderImage+7: 8B 5D 08                 - mov ebx,[ebp+08]
+Tnots.VHSPostProcessEffect:OnRenderImage+a: 89 1C 24                 - mov [esp],ebx
+Tnots.VHSPostProcessEffect:OnRenderImage+d: 8B C0                    - mov eax,eax
+Tnots.VHSPostProcessEffect:OnRenderImage+f: E8 BC F9 FF FF           - call Tnots.PostProcess:get_Material
+Tnots.VHSPostProcessEffect:OnRenderImage+14: 89 45 F4                 - mov [ebp-0C],eax
+Tnots.VHSPostProcessEffect:OnRenderImage+17: 8B 43 18                 - mov eax,[ebx+18]
+Tnots.VHSPostProcessEffect:OnRenderImage+1a: 89 04 24                 - mov [esp],eax
+Tnots.VHSPostProcessEffect:OnRenderImage+1d: 39 00                    - cmp [eax],eax
+Tnots.VHSPostProcessEffect:OnRenderImage+1f: E8 84 00 00 00           - call UnityEngine.Video.VideoPlayer:get_texture
+Tnots.VHSPostProcessEffect:OnRenderImage+24: 8B C8                    - mov ecx,eax
+Tnots.VHSPostProcessEffect:OnRenderImage+26: 8B 45 F4                 - mov eax,[ebp-0C]
+Tnots.VHSPostProcessEffect:OnRenderImage+29: 89 4C 24 08              - mov [esp+08],ecx
+Tnots.VHSPostProcessEffect:OnRenderImage+2d: C7 44 24 04 60 E4 BB 26  - mov [esp+04],26BBE460
+Tnots.VHSPostProcessEffect:OnRenderImage+35: 89 04 24                 - mov [esp],eax
+Tnots.VHSPostProcessEffect:OnRenderImage+38: 39 00                    - cmp [eax],eax
+Tnots.VHSPostProcessEffect:OnRenderImage+3a: 90                       - nop 
+Tnots.VHSPostProcessEffect:OnRenderImage+3b: E8 18 01 00 00           - call UnityEngine.Material:SetTexture
+Tnots.VHSPostProcessEffect:OnRenderImage+40: 89 1C 24                 - mov [esp],ebx
+Tnots.VHSPostProcessEffect:OnRenderImage+43: E8 88 F9 FF FF           - call Tnots.PostProcess:get_Material
+Tnots.VHSPostProcessEffect:OnRenderImage+48: D9 43 1C                 - fld dword ptr [ebx+1C]
+// ---------- INJECTING HERE ----------
+Tnots.VHSPostProcessEffect:OnRenderImage+4b: D9 5C 24 08              - fstp dword ptr [esp+08]
+// ---------- DONE INJECTING  ----------
+Tnots.VHSPostProcessEffect:OnRenderImage+4f: C7 44 24 04 28 3F B9 26  - mov [esp+04],26B93F28
+Tnots.VHSPostProcessEffect:OnRenderImage+57: 89 04 24                 - mov [esp],eax
+Tnots.VHSPostProcessEffect:OnRenderImage+5a: 39 00                    - cmp [eax],eax
+Tnots.VHSPostProcessEffect:OnRenderImage+5c: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.VHSPostProcessEffect:OnRenderImage+5f: E8 0C FB FF FF           - call UnityEngine.Material:SetFloat
+Tnots.VHSPostProcessEffect:OnRenderImage+64: 89 1C 24                 - mov [esp],ebx
+Tnots.VHSPostProcessEffect:OnRenderImage+67: E8 64 F9 FF FF           - call Tnots.PostProcess:get_Material
+Tnots.VHSPostProcessEffect:OnRenderImage+6c: 89 44 24 08              - mov [esp+08],eax
+Tnots.VHSPostProcessEffect:OnRenderImage+70: 8B 45 10                 - mov eax,[ebp+10]
+Tnots.VHSPostProcessEffect:OnRenderImage+73: 89 44 24 04              - mov [esp+04],eax
+Tnots.VHSPostProcessEffect:OnRenderImage+77: 8B 45 0C                 - mov eax,[ebp+0C]
+Tnots.VHSPostProcessEffect:OnRenderImage+7a: 89 04 24                 - mov [esp],eax
+Tnots.VHSPostProcessEffect:OnRenderImage+7d: 8B C0                    - mov eax,eax
+Tnots.VHSPostProcessEffect:OnRenderImage+7f: E8 E4 FB FF FF           - call UnityEngine.Graphics:Blit
+Tnots.VHSPostProcessEffect:OnRenderImage+84: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.VHSPostProcessEffect:OnRenderImage+87: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.VHSPostProcessEffect:OnRenderImage+8a: 5B                       - pop ebx
+Tnots.VHSPostProcessEffect:OnRenderImage+8b: C9                       - leave 
+Tnots.VHSPostProcessEffect:OnRenderImage+8c: C3                       - ret 
+270C755D: 00 00                    - add [eax],al
+270C755F: 00 68 30                 - add [eax+30],ch
+270C7562: ED                       - in eax,dx
+270C7563: 79 1F                    - jns UnityEngine.Video.VideoPlayer:get_texture+c
+270C7565: E9 96 8B 89 DD           - jmp 04960100
+270C756A: 00 00                    - add [eax],al
+270C756C: 68 88 89 78 1F           - push 1F788988
+270C7571: E9 8A 8B 89 DD           - jmp 04960100
+270C7576: 00 00                    - add [eax],al
+UnityEngine.Video.VideoPlayer:get_texture: 55                       - push ebp
+UnityEngine.Video.VideoPlayer:get_texture+1: 8B EC                    - mov ebp,esp
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Remove Glitch Effect"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{Game  : The Night of the Scissors.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(NoGlitch,Tnots.GlitchEffect:OnRenderImage)
+alloc(NoGlitch_Orig,8)
+
+registersymbol(NoGlitch NoGlitch_Orig)
+
+NoGlitch_Orig:
+  readmem(NoGlitch,1)
+
+NoGlitch:
+  db C3
+
+[DISABLE]
+
+NoGlitch:
+  readmem(NoGlitch_Orig,1)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Tnots.GlitchEffect:OnRenderImage
+
+TMPro.TextMeshProUGUI:InternalUpdate+d0: C3                       - ret 
+TMPro.TextMeshProUGUI:InternalUpdate+d1: 6A 6F                    - push 6F
+TMPro.TextMeshProUGUI:InternalUpdate+d3: 68 86 01 00 00           - push 00000186
+TMPro.TextMeshProUGUI:InternalUpdate+d8: E8 FB 50 4E D6           - call 01291100
+2ADAC005: 00 00                    - add [eax],al
+2ADAC007: 00 68 C8                 - add [eax-38],ch
+2ADAC00A: 6B 14 19 E9              - imul edx,[ecx+ebx],-17
+2ADAC00E: EE                       - out dx,al
+2ADAC00F: 40                       - inc eax
+2ADAC010: 4E                       - dec esi
+2ADAC011: D6                       - db D6
+2ADAC012: 00 00                    - add [eax],al
+2ADAC014: 00 00                    - add [eax],al
+2ADAC016: 00 00                    - add [eax],al
+TMPro.TMP_MaterialManager:OnPreRender: 55                       - push ebp
+TMPro.TMP_MaterialManager:OnPreRender+1: 8B EC                    - mov ebp,esp
+TMPro.TMP_MaterialManager:OnPreRender+3: 83 EC 08                 - sub esp,08
+TMPro.TMP_MaterialManager:OnPreRender+6: 0F B6 05 F8 7E 76 06     - movzx eax,byte ptr [06767EF8]
+TMPro.TMP_MaterialManager:OnPreRender+d: 85 C0                    - test eax,eax
+TMPro.TMP_MaterialManager:OnPreRender+f: 74 0F                    - je TMPro.TMP_MaterialManager:OnPreRender+20
+TMPro.TMP_MaterialManager:OnPreRender+11: 8B C0                    - mov eax,eax
+TMPro.TMP_MaterialManager:OnPreRender+13: E8 0C 00 00 00           - call 2ADAC03C
+TMPro.TMP_MaterialManager:OnPreRender+18: B8 F8 7E 76 06           - mov eax,06767EF8
+TMPro.TMP_MaterialManager:OnPreRender+1d: C6 00 00                 - mov byte ptr [eax],00
+TMPro.TMP_MaterialManager:OnPreRender+20: C9                       - leave 
+TMPro.TMP_MaterialManager:OnPreRender+21: C3                       - ret 
+2ADAC03A: 00 00                    - add [eax],al
+2ADAC03C: 68 78 BC DB 1E           - push 1EDBBC78
+2ADAC041: E9 BA 40 4E D6           - jmp 01290100
+2ADAC046: 00 00                    - add [eax],al
+// ---------- INJECTING HERE ----------
+Tnots.GlitchEffect:OnRenderImage: 55                       - push ebp
+// ---------- DONE INJECTING  ----------
+Tnots.GlitchEffect:OnRenderImage+1: 8B EC                    - mov ebp,esp
+Tnots.GlitchEffect:OnRenderImage+3: 53                       - push ebx
+Tnots.GlitchEffect:OnRenderImage+4: 81 EC C4 00 00 00        - sub esp,000000C4
+Tnots.GlitchEffect:OnRenderImage+a: 8B 5D 08                 - mov ebx,[ebp+08]
+Tnots.GlitchEffect:OnRenderImage+d: 89 1C 24                 - mov [esp],ebx
+Tnots.GlitchEffect:OnRenderImage+10: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.GlitchEffect:OnRenderImage+13: E8 40 AE 84 FB           - call Tnots.PostProcess:get_Material
+Tnots.GlitchEffect:OnRenderImage+18: D9 43 18                 - fld dword ptr [ebx+18]
+Tnots.GlitchEffect:OnRenderImage+1b: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.GlitchEffect:OnRenderImage+1f: C7 44 24 04 28 3F 0E 26  - mov [esp+04],260E3F28
+Tnots.GlitchEffect:OnRenderImage+27: 89 04 24                 - mov [esp],eax
+Tnots.GlitchEffect:OnRenderImage+2a: 39 00                    - cmp [eax],eax
+Tnots.GlitchEffect:OnRenderImage+2c: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.GlitchEffect:OnRenderImage+2f: E8 C4 AF 84 FB           - call UnityEngine.Material:SetFloat
+Tnots.GlitchEffect:OnRenderImage+34: 89 1C 24                 - mov [esp],ebx
+Tnots.GlitchEffect:OnRenderImage+37: E8 1C AE 84 FB           - call Tnots.PostProcess:get_Material
+Tnots.GlitchEffect:OnRenderImage+3c: D9 43 20                 - fld dword ptr [ebx+20]
+Tnots.GlitchEffect:OnRenderImage+3f: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.GlitchEffect:OnRenderImage+43: C7 44 24 04 20 1A 16 26  - mov [esp+04],26161A20
+Tnots.GlitchEffect:OnRenderImage+4b: 89 04 24                 - mov [esp],eax
+Tnots.GlitchEffect:OnRenderImage+4e: 39 00                    - cmp [eax],eax
+Tnots.GlitchEffect:OnRenderImage+50: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.GlitchEffect:OnRenderImage+53: E8 A0 AF 84 FB           - call UnityEngine.Material:SetFloat
+Tnots.GlitchEffect:OnRenderImage+58: 89 1C 24                 - mov [esp],ebx
+Tnots.GlitchEffect:OnRenderImage+5b: E8 F8 AD 84 FB           - call Tnots.PostProcess:get_Material
+Tnots.GlitchEffect:OnRenderImage+60: 8B 4B 14                 - mov ecx,[ebx+14]
+Tnots.GlitchEffect:OnRenderImage+63: 89 4C 24 08              - mov [esp+08],ecx
+Tnots.GlitchEffect:OnRenderImage+67: C7 44 24 04 C0 28 16 26  - mov [esp+04],261628C0
+Tnots.GlitchEffect:OnRenderImage+6f: 89 04 24                 - mov [esp],eax
+Tnots.GlitchEffect:OnRenderImage+72: 39 00                    - cmp [eax],eax
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Remove Distortion (usually in chases)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{Game  : The Night of the Scissors.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+aobscanregion(distortion,Tnots.Distortion:OnRenderImage,Tnots.Distortion:OnRenderImage+C4,D9 ? ? D9 ? ? ? C7 ? ? ? ? ? ? ? 89 ? ? 39 ? 8D ? ? E8)
+alloc(newmem,128,distortion)
+
+registersymbol(distortion distortion_Orig Dist)
+label(return distortion_Orig Dist)
+
+newmem:
+  fld dword ptr [Dist]
+  fstp dword ptr [esp+08]
+  jmp return
+distortion_Orig:
+  readmem(distortion,7)
+  //fld dword ptr [ebx+20]
+  //fstp dword ptr [esp+08]
+
+
+Dist:
+  dd 0
+
+distortion:
+  jmp newmem
+  nop 2
+return:
+
+[DISABLE]
+
+distortion:
+  readmem(distortion_Orig,7)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Tnots.Distortion:OnRenderImage+14
+
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+186: 89 4D DC                 - mov [ebp-24],ecx
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+189: 8B 4D B0                 - mov ecx,[ebp-50]
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+18c: 89 4D E0                 - mov [ebp-20],ecx
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+18f: 8B 4D D8                 - mov ecx,[ebp-28]
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+192: 89 4C 24 04              - mov [esp+04],ecx
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+196: 8B 4D DC                 - mov ecx,[ebp-24]
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+199: 89 4C 24 08              - mov [esp+08],ecx
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+19d: 8B 4D E0                 - mov ecx,[ebp-20]
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+1a0: 89 4C 24 0C              - mov [esp+0C],ecx
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+1a4: 89 04 24                 - mov [esp],eax
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+1a7: 39 00                    - cmp [eax],eax
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+1a9: 8B C0                    - mov eax,eax
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+1ab: E8 60 20 48 FE           - call UnityEngine.Transform:set_position
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+1b0: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+1b3: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+1b6: 5F                       - pop edi
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+1b7: C9                       - leave 
+Tnots.ThirdPersonCameraControllerBase:LateUpdate+1b8: C3                       - ret 
+2C0D0699: 00 00                    - add [eax],al
+2C0D069B: 00 00                    - add [eax],al
+2C0D069D: 00 00                    - add [eax],al
+2C0D069F: 00 55 8B                 - add [ebp-75],dl
+Tnots.Distortion:OnRenderImage+2: EC                       - in al,dx
+Tnots.Distortion:OnRenderImage+3: 53                       - push ebx
+Tnots.Distortion:OnRenderImage+4: 83 EC 24                 - sub esp,24
+Tnots.Distortion:OnRenderImage+7: 8B 5D 08                 - mov ebx,[ebp+08]
+Tnots.Distortion:OnRenderImage+a: 89 1C 24                 - mov [esp],ebx
+Tnots.Distortion:OnRenderImage+d: 8B C0                    - mov eax,eax
+Tnots.Distortion:OnRenderImage+f: E8 EC 67 CF FA           - call Tnots.PostProcess:get_Material
+Tnots.Distortion:OnRenderImage+14: D9 43 20                 - fld dword ptr [ebx+20]
+// ---------- INJECTING HERE ----------
+Tnots.Distortion:OnRenderImage+17: D9 5C 24 08              - fstp dword ptr [esp+08]
+// ---------- DONE INJECTING  ----------
+Tnots.Distortion:OnRenderImage+1b: C7 44 24 04 A8 40 7C 26  - mov [esp+04],267C40A8
+Tnots.Distortion:OnRenderImage+23: 89 04 24                 - mov [esp],eax
+Tnots.Distortion:OnRenderImage+26: 39 00                    - cmp [eax],eax
+Tnots.Distortion:OnRenderImage+28: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.Distortion:OnRenderImage+2b: E8 70 69 CF FA           - call UnityEngine.Material:SetFloat
+Tnots.Distortion:OnRenderImage+30: 89 1C 24                 - mov [esp],ebx
+Tnots.Distortion:OnRenderImage+33: E8 C8 67 CF FA           - call Tnots.PostProcess:get_Material
+Tnots.Distortion:OnRenderImage+38: D9 43 18                 - fld dword ptr [ebx+18]
+Tnots.Distortion:OnRenderImage+3b: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.Distortion:OnRenderImage+3f: C7 44 24 04 70 40 7C 26  - mov [esp+04],267C4070
+Tnots.Distortion:OnRenderImage+47: 89 04 24                 - mov [esp],eax
+Tnots.Distortion:OnRenderImage+4a: 39 00                    - cmp [eax],eax
+Tnots.Distortion:OnRenderImage+4c: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.Distortion:OnRenderImage+4f: E8 4C 69 CF FA           - call UnityEngine.Material:SetFloat
+Tnots.Distortion:OnRenderImage+54: 89 1C 24                 - mov [esp],ebx
+Tnots.Distortion:OnRenderImage+57: E8 A4 67 CF FA           - call Tnots.PostProcess:get_Material
+Tnots.Distortion:OnRenderImage+5c: D9 43 1C                 - fld dword ptr [ebx+1C]
+Tnots.Distortion:OnRenderImage+5f: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.Distortion:OnRenderImage+63: C7 44 24 04 28 0A 01 2C  - mov [esp+04],2C010A28
+Tnots.Distortion:OnRenderImage+6b: 89 04 24                 - mov [esp],eax
+Tnots.Distortion:OnRenderImage+6e: 39 00                    - cmp [eax],eax
+Tnots.Distortion:OnRenderImage+70: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.Distortion:OnRenderImage+73: E8 28 69 CF FA           - call UnityEngine.Material:SetFloat
+Tnots.Distortion:OnRenderImage+78: 89 1C 24                 - mov [esp],ebx
+Tnots.Distortion:OnRenderImage+7b: E8 80 67 CF FA           - call Tnots.PostProcess:get_Material
+Tnots.Distortion:OnRenderImage+80: 8B 4B 14                 - mov ecx,[ebx+14]
+Tnots.Distortion:OnRenderImage+83: 89 4C 24 08              - mov [esp+08],ecx
+Tnots.Distortion:OnRenderImage+87: C7 44 24 04 00 0A 01 2C  - mov [esp+04],2C010A00
+Tnots.Distortion:OnRenderImage+8f: 89 04 24                 - mov [esp],eax
+Tnots.Distortion:OnRenderImage+92: 39 00                    - cmp [eax],eax
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"Sharpness"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{Game  : The Night of the Scissors.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+aobscanregion(Sharp,Tnots.SharpenPostProcessing:OnRenderImage,Tnots.SharpenPostProcessing:OnRenderImage+7C,D9 ? ? D9 ? ? ? C7 ? ? ? ? ? ? ? 89 ? ? 39 ? 8D ? ? E8 ? ? ? ? 89 ? ? E8 ? ? ? ? 89)
+alloc(newmem,128,Sharp)
+
+registersymbol(Sharp Sharp_Orig SHP)
+label(return Sharp_Orig SHP)
+
+newmem:
+  fld dword ptr [SHP]
+  fstp dword ptr [esp+08]
+  jmp return
+Sharp_Orig:
+  readmem(Sharp,7)
+  //fld dword ptr [ebx+18]
+  //fstp dword ptr [esp+08]
+
+SHP:
+  dd (float)1
+
+Sharp:
+  jmp newmem
+  nop 2
+return:
+
+[DISABLE]
+
+Sharp:
+  readmem(Sharp_Orig,7)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Tnots.SharpenPostProcessing:OnRenderImage+38
+
+UnityEngine.Graphics:Internal_BlitMaterial5+8f: C3                       - ret 
+UnityEngine.Graphics:Internal_BlitMaterial5+90: 83 EC 0C                 - sub esp,0C
+UnityEngine.Graphics:Internal_BlitMaterial5+93: 56                       - push esi
+UnityEngine.Graphics:Internal_BlitMaterial5+94: 8D 6D 00                 - lea ebp,[ebp+00]
+UnityEngine.Graphics:Internal_BlitMaterial5+97: E8 1C B4 63 DD           - call 04060B40
+UnityEngine.Graphics:Internal_BlitMaterial5+9c: 8D 6D 00                 - lea ebp,[ebp+00]
+UnityEngine.Graphics:Internal_BlitMaterial5+9f: E8 04 B9 6A E0           - call 070D1030
+UnityEngine.Graphics:Internal_BlitMaterial5+a4: 8B F0                    - mov esi,eax
+UnityEngine.Graphics:Internal_BlitMaterial5+a6: 85 C0                    - test eax,eax
+UnityEngine.Graphics:Internal_BlitMaterial5+a8: 75 E6                    - jne UnityEngine.Graphics:Internal_BlitMaterial5+90
+UnityEngine.Graphics:Internal_BlitMaterial5+aa: EB C0                    - jmp UnityEngine.Graphics:Internal_BlitMaterial5+6c
+26A25734: 00 00                    - add [eax],al
+26A25736: 00 00                    - add [eax],al
+Tnots.SharpenPostProcessing:OnRenderImage: 55                       - push ebp
+Tnots.SharpenPostProcessing:OnRenderImage+1: 8B EC                    - mov ebp,esp
+Tnots.SharpenPostProcessing:OnRenderImage+3: 53                       - push ebx
+Tnots.SharpenPostProcessing:OnRenderImage+4: 83 EC 24                 - sub esp,24
+Tnots.SharpenPostProcessing:OnRenderImage+7: 8B 5D 08                 - mov ebx,[ebp+08]
+Tnots.SharpenPostProcessing:OnRenderImage+a: 89 1C 24                 - mov [esp],ebx
+Tnots.SharpenPostProcessing:OnRenderImage+d: 8B C0                    - mov eax,eax
+Tnots.SharpenPostProcessing:OnRenderImage+f: E8 74 FB FF FF           - call Tnots.PostProcess:get_Material
+Tnots.SharpenPostProcessing:OnRenderImage+14: D9 43 14                 - fld dword ptr [ebx+14]
+Tnots.SharpenPostProcessing:OnRenderImage+17: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.SharpenPostProcessing:OnRenderImage+1b: C7 44 24 04 E0 E4 51 26  - mov [esp+04],2651E4E0
+Tnots.SharpenPostProcessing:OnRenderImage+23: 89 04 24                 - mov [esp],eax
+Tnots.SharpenPostProcessing:OnRenderImage+26: 39 00                    - cmp [eax],eax
+Tnots.SharpenPostProcessing:OnRenderImage+28: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.SharpenPostProcessing:OnRenderImage+2b: E8 F8 FC FF FF           - call UnityEngine.Material:SetFloat
+Tnots.SharpenPostProcessing:OnRenderImage+30: 89 1C 24                 - mov [esp],ebx
+Tnots.SharpenPostProcessing:OnRenderImage+33: E8 50 FB FF FF           - call Tnots.PostProcess:get_Material
+// ---------- INJECTING HERE ----------
+Tnots.SharpenPostProcessing:OnRenderImage+38: D9 43 18                 - fld dword ptr [ebx+18]
+// ---------- DONE INJECTING  ----------
+Tnots.SharpenPostProcessing:OnRenderImage+3b: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.SharpenPostProcessing:OnRenderImage+3f: C7 44 24 04 C0 E4 51 26  - mov [esp+04],2651E4C0
+Tnots.SharpenPostProcessing:OnRenderImage+47: 89 04 24                 - mov [esp],eax
+Tnots.SharpenPostProcessing:OnRenderImage+4a: 39 00                    - cmp [eax],eax
+Tnots.SharpenPostProcessing:OnRenderImage+4c: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.SharpenPostProcessing:OnRenderImage+4f: E8 D4 FC FF FF           - call UnityEngine.Material:SetFloat
+Tnots.SharpenPostProcessing:OnRenderImage+54: 89 1C 24                 - mov [esp],ebx
+Tnots.SharpenPostProcessing:OnRenderImage+57: E8 2C FB FF FF           - call Tnots.PostProcess:get_Material
+Tnots.SharpenPostProcessing:OnRenderImage+5c: 89 44 24 08              - mov [esp+08],eax
+Tnots.SharpenPostProcessing:OnRenderImage+60: 8B 45 10                 - mov eax,[ebp+10]
+Tnots.SharpenPostProcessing:OnRenderImage+63: 89 44 24 04              - mov [esp+04],eax
+Tnots.SharpenPostProcessing:OnRenderImage+67: 8B 45 0C                 - mov eax,[ebp+0C]
+Tnots.SharpenPostProcessing:OnRenderImage+6a: 89 04 24                 - mov [esp],eax
+Tnots.SharpenPostProcessing:OnRenderImage+6d: 8B C0                    - mov eax,eax
+Tnots.SharpenPostProcessing:OnRenderImage+6f: E8 AC FD FF FF           - call UnityEngine.Graphics:Blit
+Tnots.SharpenPostProcessing:OnRenderImage+74: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.SharpenPostProcessing:OnRenderImage+77: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.SharpenPostProcessing:OnRenderImage+7a: 5B                       - pop ebx
+Tnots.SharpenPostProcessing:OnRenderImage+7b: C9                       - leave 
+Tnots.SharpenPostProcessing:OnRenderImage+7c: C3                       - ret 
+26A257B5: 00 00                    - add [eax],al
+26A257B7: 00 55 8B                 - add [ebp-75],dl
+Tnots.ChromaticAberration:OnRenderImage+2: EC                       - in al,dx
+Tnots.ChromaticAberration:OnRenderImage+3: 53                       - push ebx
+Tnots.ChromaticAberration:OnRenderImage+4: 83 EC 24                 - sub esp,24
+Tnots.ChromaticAberration:OnRenderImage+7: 8B 5D 08                 - mov ebx,[ebp+08]
+Tnots.ChromaticAberration:OnRenderImage+a: 89 1C 24                 - mov [esp],ebx
+Tnots.ChromaticAberration:OnRenderImage+d: 8B C0                    - mov eax,eax
+Tnots.ChromaticAberration:OnRenderImage+f: E8 F4 FA FF FF           - call Tnots.PostProcess:get_Material
+Tnots.ChromaticAberration:OnRenderImage+14: D9 05 70 F1 0E 1F        - fld dword ptr [1F0EF170]
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"Value (default = 1)"</Description>
+          <VariableType>Float</VariableType>
+          <Address>SHP</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Force Halloween event"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{Game  : The Night of the Scissors.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+aobscanregion(Halloween,Tnots.ShowDuringHalloweenEvent:Start,Tnots.ShowDuringHalloweenEvent:Start+31,0F ? ? ? 89 ? ? ? 89 ? ? 39 ? E8 ? ? ? ? C9)
+alloc(newmem,128,Halloween)
+
+registersymbol(Halloween Halloween_Orig)
+label(return Halloween_Orig)
+
+newmem:
+  mov byte ptr [ecx+10],01
+Halloween_Orig:
+  readmem(Halloween,8)
+  //movzx ecx,byte ptr [ecx+10]
+  //mov [esp+04],ecx
+  jmp return
+
+Halloween:
+  jmp newmem
+  nop 3
+return:
+
+[DISABLE]
+
+Halloween:
+  readmem(Halloween_Orig,8)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Tnots.ShowDuringHalloweenEvent:Start+1e
+
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+6: 8B 45 08           - mov eax,[ebp+08]
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+9: 8B 40 18           - mov eax,[eax+18]
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+c: 85 C0              - test eax,eax
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+e: 0F 97 C0           - seta al
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+11: 0F B6 C0           - movzx eax,al
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+14: 0F B6 C0           - movzx eax,al
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+17: 85 C0              - test eax,eax
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+19: 74 16              - je UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+31
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+1b: 8B 4D 08           - mov ecx,[ebp+08]
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+1e: 8B 41 18           - mov eax,[ecx+18]
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+21: 89 4C 24 04        - mov [esp+04],ecx
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+25: 89 04 24           - mov [esp],eax
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+28: 89 45 FC           - mov [ebp-04],eax
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+2b: FF 50 0C           - call dword ptr [eax+0C]
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+2e: 8B 45 FC           - mov eax,[ebp-04]
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+31: C9                 - leave 
+UnityEngine.Video.VideoPlayer:InvokeFrameDroppedCallback_Internal+32: C3                 - ret 
+29A50DEB: 00 00              - add [eax],al
+29A50DED: 00 00              - add [eax],al
+29A50DEF: 00 55 8B           - add [ebp-75],dl
+Tnots.ShowDuringHalloweenEvent:Start+2: EC                 - in al,dx
+Tnots.ShowDuringHalloweenEvent:Start+3: 83 EC 18           - sub esp,18
+Tnots.ShowDuringHalloweenEvent:Start+6: 8B 45 08           - mov eax,[ebp+08]
+Tnots.ShowDuringHalloweenEvent:Start+9: 89 04 24           - mov [esp],eax
+Tnots.ShowDuringHalloweenEvent:Start+c: 8D 6D 00           - lea ebp,[ebp+00]
+Tnots.ShowDuringHalloweenEvent:Start+f: E8 E4 D9 CF F5     - call UnityEngine.Component:get_gameObject
+Tnots.ShowDuringHalloweenEvent:Start+14: 8B 0D C8 3E 55 06  - mov ecx,[06553EC8]
+Tnots.ShowDuringHalloweenEvent:Start+1a: 8B D1              - mov edx,ecx
+Tnots.ShowDuringHalloweenEvent:Start+1c: 39 12              - cmp [edx],edx
+Tnots.ShowDuringHalloweenEvent:Start+1e: 0F B6 49 10        - movzx ecx,byte ptr [ecx+10]
+// ---------- INJECTING HERE ----------
+Tnots.ShowDuringHalloweenEvent:Start+22: 89 4C 24 04        - mov [esp+04],ecx
+// ---------- DONE INJECTING  ----------
+Tnots.ShowDuringHalloweenEvent:Start+26: 89 04 24           - mov [esp],eax
+Tnots.ShowDuringHalloweenEvent:Start+29: 39 00              - cmp [eax],eax
+Tnots.ShowDuringHalloweenEvent:Start+2b: E8 C0 F3 9E FC     - call UnityEngine.GameObject:SetActive
+Tnots.ShowDuringHalloweenEvent:Start+30: C9                 - leave 
+Tnots.ShowDuringHalloweenEvent:Start+31: C3                 - ret 
+29A50E22: 00 00              - add [eax],al
+29A50E24: 00 00              - add [eax],al
+29A50E26: 00 00              - add [eax],al
+29A50E28: 55                 - push ebp
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+1: 8B EC              - mov ebp,esp
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+3: 56                 - push esi
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+4: 83 EC 34           - sub esp,34
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+7: 8B 75 08           - mov esi,[ebp+08]
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+a: 85 F6              - test esi,esi
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+c: 0F 84 78 01 00 00  - je UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+18a
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+12: 8D 46 78           - lea eax,[esi+78]
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+15: 8B 00              - mov eax,[eax]
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+17: 85 C0              - test eax,eax
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+19: 0F 94 C0           - sete al
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+1c: 0F B6 C0           - movzx eax,al
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+1f: 85 C0              - test eax,eax
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+21: 75 1C              - jne UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+3f
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+23: 85 F6              - test esi,esi
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+25: 0F 84 58 01 00 00  - je UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+183
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+2b: 8D 86 88 00 00 00  - lea eax,[esi+00000088]
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+31: 8B 00              - mov eax,[eax]
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+33: 85 C0              - test eax,eax
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+35: 0F 94 C0           - sete al
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+38: 0F B6 C0           - movzx eax,al
+UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+3b: 85 C0              - test eax,eax
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"No DMG (This will help unlock the no dmg achievement)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{Game  : The Night of the Scissors.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(dmg,Tnots.PlayerController:TakeDamage)
+alloc(dmg_Orig,8)
+
+registersymbol(dmg dmg_Orig)
+
+dmg_Orig:
+  readmem(dmg,1)
+
+dmg:
+  db C3
+
+[DISABLE]
+
+dmg:
+  readmem(dmg_Orig,1)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Tnots.PlayerController:TakeDamage
+
+Tnots.EnemyController:HandleStabPerform+5c: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.EnemyController:HandleStabPerform+5f: E8 54 00 00 00           - call Tnots.PlayerController:TakeDamage
+Tnots.EnemyController:HandleStabPerform+64: 8B 47 24                 - mov eax,[edi+24]
+Tnots.EnemyController:HandleStabPerform+67: 89 04 24                 - mov [esp],eax
+Tnots.EnemyController:HandleStabPerform+6a: 39 00                    - cmp [eax],eax
+Tnots.EnemyController:HandleStabPerform+6c: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.EnemyController:HandleStabPerform+6f: E8 6C 02 00 00           - call Tnots.EnemyAestheticController:PlayStabSFX
+Tnots.EnemyController:HandleStabPerform+74: 8D 6D 00                 - lea ebp,[ebp+00]
+Tnots.EnemyController:HandleStabPerform+77: E8 E4 FC 00 FB           - call UnityEngine.Time:get_time
+Tnots.EnemyController:HandleStabPerform+7c: D9 47 48                 - fld dword ptr [edi+48]
+Tnots.EnemyController:HandleStabPerform+7f: DE C1                    - faddp 
+Tnots.EnemyController:HandleStabPerform+81: D9 5F 58                 - fstp dword ptr [edi+58]
+Tnots.EnemyController:HandleStabPerform+84: D9 47 44                 - fld dword ptr [edi+44]
+Tnots.EnemyController:HandleStabPerform+87: D9 5C 24 08              - fstp dword ptr [esp+08]
+Tnots.EnemyController:HandleStabPerform+8b: C7 44 24 04 48 08 01 2C  - mov [esp+04],2C010848
+Tnots.EnemyController:HandleStabPerform+93: 89 3C 24                 - mov [esp],edi
+Tnots.EnemyController:HandleStabPerform+96: 90                       - nop 
+Tnots.EnemyController:HandleStabPerform+97: E8 DC E3 9F F8           - call UnityEngine.MonoBehaviour:Invoke
+Tnots.EnemyController:HandleStabPerform+9c: 8D 65 F8                 - lea esp,[ebp-08]
+Tnots.EnemyController:HandleStabPerform+9f: 8D 65 F8                 - lea esp,[ebp-08]
+Tnots.EnemyController:HandleStabPerform+a2: 5E                       - pop esi
+Tnots.EnemyController:HandleStabPerform+a3: 5F                       - pop edi
+Tnots.EnemyController:HandleStabPerform+a4: C9                       - leave 
+Tnots.EnemyController:HandleStabPerform+a5: C3                       - ret 
+2BA9DA6E: 00 00                    - add [eax],al
+2BA9DA70: 68 70 E2 42 19           - push 1942E270
+2BA9DA75: E9 86 26 4C D7           - jmp 02F60100
+2BA9DA7A: 00 00                    - add [eax],al
+2BA9DA7C: 00 00                    - add [eax],al
+2BA9DA7E: 00 00                    - add [eax],al
+// ---------- INJECTING HERE ----------
+Tnots.PlayerController:TakeDamage: 55                       - push ebp
+// ---------- DONE INJECTING  ----------
+Tnots.PlayerController:TakeDamage+1: 8B EC                    - mov ebp,esp
+Tnots.PlayerController:TakeDamage+3: 56                       - push esi
+Tnots.PlayerController:TakeDamage+4: 83 EC 24                 - sub esp,24
+Tnots.PlayerController:TakeDamage+7: 8B 45 08                 - mov eax,[ebp+08]
+Tnots.PlayerController:TakeDamage+a: 8B 40 10                 - mov eax,[eax+10]
+Tnots.PlayerController:TakeDamage+d: 89 04 24                 - mov [esp],eax
+Tnots.PlayerController:TakeDamage+10: 39 00                    - cmp [eax],eax
+Tnots.PlayerController:TakeDamage+12: 90                       - nop 
+Tnots.PlayerController:TakeDamage+13: E8 48 00 00 00           - call Tnots.PlayerAestheticController:PlayTakeDamage
+Tnots.PlayerController:TakeDamage+18: 8B 45 08                 - mov eax,[ebp+08]
+Tnots.PlayerController:TakeDamage+1b: 8B 40 2C                 - mov eax,[eax+2C]
+Tnots.PlayerController:TakeDamage+1e: 8B F0                    - mov esi,eax
+Tnots.PlayerController:TakeDamage+20: 85 C0                    - test eax,eax
+Tnots.PlayerController:TakeDamage+22: 75 02                    - jne Tnots.PlayerController:TakeDamage+26
+Tnots.PlayerController:TakeDamage+24: EB 06                    - jmp Tnots.PlayerController:TakeDamage+2c
+Tnots.PlayerController:TakeDamage+26: 89 34 24                 - mov [esp],esi
+Tnots.PlayerController:TakeDamage+29: FF 56 0C                 - call dword ptr [esi+0C]
+Tnots.PlayerController:TakeDamage+2c: 8B 45 0C                 - mov eax,[ebp+0C]
+Tnots.PlayerController:TakeDamage+2f: 3D 01 00 00 00           - cmp eax,00000001
+Tnots.PlayerController:TakeDamage+34: 75 14                    - jne Tnots.PlayerController:TakeDamage+4a
+Tnots.PlayerController:TakeDamage+36: 8B 45 08                 - mov eax,[ebp+08]
+Tnots.PlayerController:TakeDamage+39: 8B 40 30                 - mov eax,[eax+30]
+Tnots.PlayerController:TakeDamage+3c: 8B F0                    - mov esi,eax
+Tnots.PlayerController:TakeDamage+3e: 85 C0                    - test eax,eax
+Tnots.PlayerController:TakeDamage+40: 75 02                    - jne Tnots.PlayerController:TakeDamage+44
+Tnots.PlayerController:TakeDamage+42: EB 06                    - jmp Tnots.PlayerController:TakeDamage+4a
+Tnots.PlayerController:TakeDamage+44: 89 34 24                 - mov [esp],esi
+Tnots.PlayerController:TakeDamage+47: FF 56 0C                 - call dword ptr [esi+0C]
+Tnots.PlayerController:TakeDamage+4a: 8D 65 FC                 - lea esp,[ebp-04]
+Tnots.PlayerController:TakeDamage+4d: 8D 65 FC                 - lea esp,[ebp-04]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Freeze Killer"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{Game  : The Night of the Scissors.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(freezeEn,Tnots.EnemyController:HandleChasingState)
+alloc(freezeEn_Orig,8)
+
+registersymbol(freezeEn freezeEn_Orig)
+
+freezeEn_Orig:
+  readmem(freezeEn,1)
+
+freezeEn:
+  db C3
+
+[DISABLE]
+
+freezeEn:
+  readmem(freezeEn_Orig,1)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Tnots.EnemyController:HandleChasingState
+
+2BA9CECC: 00 00              - add [eax],al
+2BA9CECE: 00 00              - add [eax],al
+Tnots.EnemyController:set_CurrentChaseTime: 55                 - push ebp
+Tnots.EnemyController:set_CurrentChaseTime+1: 8B EC              - mov ebp,esp
+Tnots.EnemyController:set_CurrentChaseTime+3: 83 EC 18           - sub esp,18
+Tnots.EnemyController:set_CurrentChaseTime+6: D9 45 0C           - fld dword ptr [ebp+0C]
+Tnots.EnemyController:set_CurrentChaseTime+9: D9 EE              - fldz 
+Tnots.EnemyController:set_CurrentChaseTime+b: 8B 45 08           - mov eax,[ebp+08]
+Tnots.EnemyController:set_CurrentChaseTime+e: D9 40 50           - fld dword ptr [eax+50]
+Tnots.EnemyController:set_CurrentChaseTime+11: D9 5C 24 08        - fstp dword ptr [esp+08]
+Tnots.EnemyController:set_CurrentChaseTime+15: D9 5C 24 04        - fstp dword ptr [esp+04]
+Tnots.EnemyController:set_CurrentChaseTime+19: D9 1C 24           - fstp dword ptr [esp]
+Tnots.EnemyController:set_CurrentChaseTime+1c: 8D 6D 00           - lea ebp,[ebp+00]
+Tnots.EnemyController:set_CurrentChaseTime+1f: E8 BC 3A 30 F6     - call UnityEngine.Mathf:Clamp
+Tnots.EnemyController:set_CurrentChaseTime+24: 8B 45 08           - mov eax,[ebp+08]
+Tnots.EnemyController:set_CurrentChaseTime+27: D9 58 4C           - fstp dword ptr [eax+4C]
+Tnots.EnemyController:set_CurrentChaseTime+2a: C9                 - leave 
+Tnots.EnemyController:set_CurrentChaseTime+2b: C3                 - ret 
+2BA9CEFC: 00 00              - add [eax],al
+2BA9CEFE: 00 00              - add [eax],al
+Tnots.FearManager:OnKillerChaseState: 55                 - push ebp
+Tnots.FearManager:OnKillerChaseState+1: 8B EC              - mov ebp,esp
+Tnots.FearManager:OnKillerChaseState+3: 83 EC 08           - sub esp,08
+Tnots.FearManager:OnKillerChaseState+6: 8B 45 08           - mov eax,[ebp+08]
+Tnots.FearManager:OnKillerChaseState+9: C6 40 4F 01        - mov byte ptr [eax+4F],01
+Tnots.FearManager:OnKillerChaseState+d: C6 40 50 00        - mov byte ptr [eax+50],00
+Tnots.FearManager:OnKillerChaseState+11: C6 40 4C 01        - mov byte ptr [eax+4C],01
+Tnots.FearManager:OnKillerChaseState+15: C9                 - leave 
+Tnots.FearManager:OnKillerChaseState+16: C3                 - ret 
+2BA9CF17: 00                 - db 00 
+// ---------- INJECTING HERE ----------
+Tnots.EnemyController:HandleChasingState: C3                 - ret 
+// ---------- DONE INJECTING  ----------
+Tnots.EnemyController:HandleChasingState+1: 8B EC              - mov ebp,esp
+Tnots.EnemyController:HandleChasingState+3: 57                 - push edi
+Tnots.EnemyController:HandleChasingState+4: 81 EC B4 00 00 00  - sub esp,000000B4
+Tnots.EnemyController:HandleChasingState+a: 8B 7D 08           - mov edi,[ebp+08]
+Tnots.EnemyController:HandleChasingState+d: 8B 47 1C           - mov eax,[edi+1C]
+Tnots.EnemyController:HandleChasingState+10: 8B 4F 18           - mov ecx,[edi+18]
+Tnots.EnemyController:HandleChasingState+13: 89 4C 24 04        - mov [esp+04],ecx
+Tnots.EnemyController:HandleChasingState+17: 89 04 24           - mov [esp],eax
+Tnots.EnemyController:HandleChasingState+1a: 39 00              - cmp [eax],eax
+Tnots.EnemyController:HandleChasingState+1c: 8D 6D 00           - lea ebp,[ebp+00]
+Tnots.EnemyController:HandleChasingState+1f: E8 74 03 00 00     - call Tnots.EnemyAwarenessController:IsInAttackArea
+Tnots.EnemyController:HandleChasingState+24: 85 C0              - test eax,eax
+Tnots.EnemyController:HandleChasingState+26: 0F 84 05 01 00 00  - je Tnots.EnemyController:HandleChasingState+131
+Tnots.EnemyController:HandleChasingState+2c: 8B 47 24           - mov eax,[edi+24]
+Tnots.EnemyController:HandleChasingState+2f: 89 85 6C FF FF FF  - mov [ebp-00000094],eax
+Tnots.EnemyController:HandleChasingState+35: 8B 47 18           - mov eax,[edi+18]
+Tnots.EnemyController:HandleChasingState+38: 8D 4D A0           - lea ecx,[ebp-60]
+Tnots.EnemyController:HandleChasingState+3b: 89 4C 24 04        - mov [esp+04],ecx
+Tnots.EnemyController:HandleChasingState+3f: 89 04 24           - mov [esp],eax
+Tnots.EnemyController:HandleChasingState+42: 39 00              - cmp [eax],eax
+Tnots.EnemyController:HandleChasingState+44: 8D 6D 00           - lea ebp,[ebp+00]
+Tnots.EnemyController:HandleChasingState+47: E8 B4 F0 FF FF     - call Tnots.PlayerController:get_WorldPosition
+Tnots.EnemyController:HandleChasingState+4c: 83 EC 04           - sub esp,04
+Tnots.EnemyController:HandleChasingState+4f: 89 3C 24           - mov [esp],edi
+Tnots.EnemyController:HandleChasingState+52: 90                 - nop 
+Tnots.EnemyController:HandleChasingState+53: E8 D0 AD 9F F8     - call UnityEngine.Component:get_transform
+Tnots.EnemyController:HandleChasingState+58: 8D 4D AC           - lea ecx,[ebp-54]
+Tnots.EnemyController:HandleChasingState+5b: 89 4C 24 04        - mov [esp+04],ecx
+Tnots.EnemyController:HandleChasingState+5f: 89 04 24           - mov [esp],eax
+Tnots.EnemyController:HandleChasingState+62: 39 00              - cmp [eax],eax
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
