@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>172</ID>
+      <Description>"Enable"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+      <LastState/>
+      <Color>008000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$lua}
+if syntaxcheck then return end
+
+[ENABLE]
+mono_initialize()
+LaunchMonoDataCollector()
+[DISABLE]
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>150</ID>
+          <Description>"Remove VHS Effects"</Description>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : Northbury Grove.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+aobscanregion(vhsefft,postVHSPro:FeatureToggle,postVHSPro:FeatureToggle+68,74 ? 83 ? ? FF ? ? 53 39)
+alloc(vhsefft_Orig,8)
+
+registersymbol(vhsefft vhsefft_Orig)
+
+vhsefft_Orig:
+  readmem(vhsefft,1)
+
+vhsefft:
+  db EB
+
+[DISABLE]
+
+vhsefft:
+  readmem(vhsefft_Orig,1)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: postVHSPro:FeatureToggle+20
+
+UnityEngine.Time:get_time+138: F2 0F 11 45 90                 - movsd [rbp-70],xmm0
+UnityEngine.Time:get_time+13d: 48 89 65 B0                    - mov [rbp-50],rsp
+UnityEngine.Time:get_time+141: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+UnityEngine.Time:get_time+146: 49 BB 6B 10 1D A1 40 02 00 00  - mov r11,00000240A11D106B
+UnityEngine.Time:get_time+150: 41 FF D3                       - call r11
+UnityEngine.Time:get_time+153: F2 0F 10 45 90                 - movsd xmm0,[rbp-70]
+UnityEngine.Time:get_time+158: 48 8B C8                       - mov rcx,rax
+UnityEngine.Time:get_time+15b: F2 0F 11 45 98                 - movsd [rbp-68],xmm0
+UnityEngine.Time:get_time+160: 48 8B F9                       - mov rdi,rcx
+UnityEngine.Time:get_time+163: 48 85 C0                       - test rax,rax
+UnityEngine.Time:get_time+166: 75 AA                          - jne UnityEngine.Time:get_time+112
+UnityEngine.Time:get_time+168: E9 69 FF FF FF                 - jmp UnityEngine.Time:get_time+d6
+243C0B94B0D: 00 00                          - add [rax],al
+243C0B94B0F: 00 01                          - add [rcx],al
+243C0B94B11: 04 02                          - add al,02
+243C0B94B13: 05 04 03 01 50                 - add eax,50010304
+243C0B94B18: 00 00                          - add [rax],al
+243C0B94B1A: 00 00                          - add [rax],al
+243C0B94B1C: 00 00                          - add [rax],al
+243C0B94B1E: 00 00                          - add [rax],al
+postVHSPro:FeatureToggle: 55                             - push rbp
+postVHSPro:FeatureToggle+1: 48 8B EC                       - mov rbp,rsp
+postVHSPro:FeatureToggle+4: 48 83 EC 40                    - sub rsp,40
+postVHSPro:FeatureToggle+8: 48 89 75 F0                    - mov [rbp-10],rsi
+postVHSPro:FeatureToggle+c: 4C 89 7D F8                    - mov [rbp-08],r15
+postVHSPro:FeatureToggle+10: 4C 8B FA                       - mov r15,rdx
+postVHSPro:FeatureToggle+13: 4C 89 45 E0                    - mov [rbp-20],r8
+postVHSPro:FeatureToggle+17: 49 8B F1                       - mov rsi,r9
+postVHSPro:FeatureToggle+1a: 0F B6 45 E0                    - movzx eax,byte ptr [rbp-20]
+postVHSPro:FeatureToggle+1e: 85 C0                          - test eax,eax
+// ---------- INJECTING HERE ----------
+postVHSPro:FeatureToggle+20: 74 1B                          - je postVHSPro:FeatureToggle+3d
+// ---------- DONE INJECTING  ----------
+postVHSPro:FeatureToggle+22: 49 8B CF                       - mov rcx,r15
+postVHSPro:FeatureToggle+25: 48 8B D6                       - mov rdx,rsi
+postVHSPro:FeatureToggle+28: 41 83 3F 00                    - cmp dword ptr [r15],00
+postVHSPro:FeatureToggle+2c: 66 90                          - nop 2
+postVHSPro:FeatureToggle+2e: 49 BB 30 32 C4 FD 40 02 00 00  - mov r11,UnityEngine.Material:EnableKeyword
+postVHSPro:FeatureToggle+38: 41 FF D3                       - call r11
+postVHSPro:FeatureToggle+3b: EB 1E                          - jmp postVHSPro:FeatureToggle+5b
+postVHSPro:FeatureToggle+3d: 49 8B CF                       - mov rcx,r15
+postVHSPro:FeatureToggle+40: 48 8B D6                       - mov rdx,rsi
+postVHSPro:FeatureToggle+43: 41 83 3F 00                    - cmp dword ptr [r15],00
+postVHSPro:FeatureToggle+47: 48 8D AD 00 00 00 00           - lea rbp,[rbp+00000000]
+postVHSPro:FeatureToggle+4e: 49 BB A0 33 C4 FD 40 02 00 00  - mov r11,UnityEngine.Material:DisableKeyword
+postVHSPro:FeatureToggle+58: 41 FF D3                       - call r11
+postVHSPro:FeatureToggle+5b: 48 8B 75 F0                    - mov rsi,[rbp-10]
+postVHSPro:FeatureToggle+5f: 4C 8B 7D F8                    - mov r15,[rbp-08]
+postVHSPro:FeatureToggle+63: 48 8D 65 00                    - lea rsp,[rbp+00]
+postVHSPro:FeatureToggle+67: 5D                             - pop rbp
+postVHSPro:FeatureToggle+68: C3                             - ret 
+243C0B94B89: 00 00                          - add [rax],al
+243C0B94B8B: 00 00                          - add [rax],al
+243C0B94B8D: 00 00                          - add [rax],al
+243C0B94B8F: 00 01                          - add [rcx],al
+243C0B94B91: 04 02                          - add al,02
+243C0B94B93: 05 04 03 01 50                 - add eax,50010304
+243C0B94B98: 00 00                          - add [rax],al
+243C0B94B9A: 00 00                          - add [rax],al
+243C0B94B9C: 00 00                          - add [rax],al
+243C0B94B9E: 00 00                          - add [rax],al
+UnityEngine.Material:SetTexture: 55                             - push rbp
+UnityEngine.Material:SetTexture+1: 48 8B EC                       - mov rbp,rsp
+}
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

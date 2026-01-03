@@ -1,0 +1,4030 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Enable"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+      <LastState/>
+      <Color>008000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$lua}
+if syntaxcheck then return end
+
+[ENABLE]
+mono_initialize()
+LaunchMonoDataCollector()
+[DISABLE]
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Get Player Fears 1"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : Fears To Fathom.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+if getOpenedProcessID()~=getProcessIDFromProcessName('Fears To Fathom.exe') then error('Wrong game') end
+{$asm}
+define(Player,FirstPersonAIO:Update)
+alloc(newmem,128,Player)
+
+registersymbol(Player Player_Orig P_base)
+label(return Player_Orig P_base)
+
+newmem:
+  mov [P_base],rcx
+Player_Orig:
+  readmem(Player,11)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,00000130
+  jmp return
+
+P_base:
+  dq 0
+
+Player:
+  jmp newmem
+  nop 6
+return:
+
+[DISABLE]
+
+Player:
+  readmem(Player_Orig,11)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: FirstPersonAIO:Update
+
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+ab: 48 8B 75 D0                    - mov rsi,[rbp-30]
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+af: 48 8B 7D D8                    - mov rdi,[rbp-28]
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+b3: 4C 8B 65 E0                    - mov r12,[rbp-20]
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+b7: 4C 8B 6D E8                    - mov r13,[rbp-18]
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+bb: 4C 8B 75 F0                    - mov r14,[rbp-10]
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+bf: 4C 8B 7D F8                    - mov r15,[rbp-08]
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+c3: 48 8D 65 00                    - lea rsp,[rbp+00]
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+c7: 5D                             - pop rbp
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+c8: C3                             - ret 
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+c9: 48 8B CE                       - mov rcx,rsi
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+cc: 66 90                          - nop 2
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+ce: 49 BB 30 1B F3 33 71 02 00 00  - mov r11,0000027133F31B30
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+d8: 41 FF D3                       - call r11
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+db: 48 89 65 C0                    - mov [rbp-40],rsp
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+df: 48 33 C0                       - xor rax,rax
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+e2: 48 8D 6D 00                    - lea rbp,[rbp+00]
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+e6: 49 BB 83 0F F4 33 71 02 00 00  - mov r11,0000027133F40F83
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+f0: 41 FF D3                       - call r11
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+f3: 48 8B F0                       - mov rsi,rax
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+f6: 48 85 C0                       - test rax,rax
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+f9: 75 CE                          - jne UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+c9
+UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+fb: EB 8F                          - jmp UnityEngine.RectTransformUtility:PixelAdjustRect_Injected+8c
+27111BC2D5D: 00 00                          - add [rax],al
+27111BC2D5F: 00 01                          - add [rcx],al
+27111BC2D61: 04 02                          - add al,02
+27111BC2D63: 05 04 03 01 50                 - add eax,50010304
+27111BC2D68: 00 00                          - add [rax],al
+27111BC2D6A: 00 00                          - add [rax],al
+27111BC2D6C: 00 00                          - add [rax],al
+27111BC2D6E: 00 00                          - add [rax],al
+// ---------- INJECTING HERE ----------
+FirstPersonAIO:Update: 55                             - push rbp
+// ---------- DONE INJECTING  ----------
+FirstPersonAIO:Update+1: 48 8B EC                       - mov rbp,rsp
+FirstPersonAIO:Update+4: 48 81 EC 30 01 00 00           - sub rsp,00000130
+FirstPersonAIO:Update+b: 48 89 75 E0                    - mov [rbp-20],rsi
+FirstPersonAIO:Update+f: 48 89 7D E8                    - mov [rbp-18],rdi
+FirstPersonAIO:Update+13: 4C 89 75 F0                    - mov [rbp-10],r14
+FirstPersonAIO:Update+17: 4C 89 7D F8                    - mov [rbp-08],r15
+FirstPersonAIO:Update+1b: 48 8B F1                       - mov rsi,rcx
+FirstPersonAIO:Update+1e: 0F B6 86 89 00 00 00           - movzx eax,byte ptr [rsi+00000089]
+FirstPersonAIO:Update+25: 85 C0                          - test eax,eax
+FirstPersonAIO:Update+27: 0F 84 FE 08 00 00              - je FirstPersonAIO:Update+92b
+FirstPersonAIO:Update+2d: 0F B6 86 88 00 00 00           - movzx eax,byte ptr [rsi+00000088]
+FirstPersonAIO:Update+34: 85 C0                          - test eax,eax
+FirstPersonAIO:Update+36: 0F 85 EF 08 00 00              - jne FirstPersonAIO:Update+92b
+FirstPersonAIO:Update+3c: 66 0F 57 C0                    - xorpd xmm0,xmm0
+FirstPersonAIO:Update+40: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+FirstPersonAIO:Update+44: F3 0F 11 AD 2C FF FF FF        - movss [rbp-000000D4],xmm5
+FirstPersonAIO:Update+4c: 66 0F 57 C0                    - xorpd xmm0,xmm0
+FirstPersonAIO:Update+50: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+FirstPersonAIO:Update+54: F3 0F 11 AD 28 FF FF FF        - movss [rbp-000000D8],xmm5
+FirstPersonAIO:Update+5c: 48 8B 46 18                    - mov rax,[rsi+18]
+FirstPersonAIO:Update+60: 48 8B C8                       - mov rcx,rax
+FirstPersonAIO:Update+63: 83 38 00                       - cmp dword ptr [rax],00
+FirstPersonAIO:Update+66: 49 BB 70 A2 93 27 71 02 00 00  - mov r11,UnityEngine.Camera:get_fieldOfView
+FirstPersonAIO:Update+70: 41 FF D3                       - call r11
+FirstPersonAIO:Update+73: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+FirstPersonAIO:Update+77: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+FirstPersonAIO:Update+7b: F3 0F 11 AD 24 FF FF FF        - movss [rbp-000000DC],xmm5
+FirstPersonAIO:Update+83: 48 63 86 90 00 00 00           - movsxd  rax,dword ptr [rsi+00000090]
+FirstPersonAIO:Update+8a: 85 C0                          - test eax,eax
+FirstPersonAIO:Update+8c: 74 10                          - je FirstPersonAIO:Update+9e
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>2</ID>
+              <Description>"Base"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>P_base</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3</ID>
+              <Description>"walkSpeed"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[P_base]+F4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>4</ID>
+              <Description>"sprintSpeed"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[P_base]+FC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5</ID>
+              <Description>"playerCanMove"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[P_base]+F0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>6</ID>
+              <Description>"walkByDefault"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[P_base]+F1</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>7</ID>
+              <Description>"jumpPower"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[P_base]+100</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>8</ID>
+              <Description>"canJump"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[P_base]+104</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>9</ID>
+              <Description>"useHeadbob"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[P_base]+141</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>10</ID>
+              <Description>"gravityMultiplier"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[P_base]+40</Address>
+              <Offsets>
+                <Offset>20</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>11</ID>
+              <Description>"maxStepHeight"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[P_base]+40</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"Get Player Fears 2"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : Fears To Fathom - Norwood Hitchhike.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+if getOpenedProcessID()~=getProcessIDFromProcessName('Fears To Fathom - Norwood Hitchhike.exe') then error('Wrong game') end
+{$asm}
+define(player,FirstPersonController:Update)
+alloc(newmem,128,player)
+
+registersymbol(player player_Orig bas)
+label(return player_Orig bas)
+
+newmem:
+  mov [bas],rcx
+player_Orig:
+  readmem(player,8)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,30
+  jmp return
+
+bas:
+  dq 0
+
+player:
+  jmp newmem
+  nop 3
+return:
+
+[DISABLE]
+
+player:
+  readmem(player_Orig,8)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: FirstPersonController:Update
+
+2F56F086CCF: 00 41 FF                       - add [rcx-01],al
+2F56F086CD2: D3 08                          - ror [rax],cl
+2F56F086CD4: 90                             - nop 
+2F56F086CD5: 89 0F                          - mov [rdi],ecx
+2F56F086CD7: F2 F7 02 00 00 00 00           - repne test [rdx],00000000
+2F56F086CDE: 00 00                          - add [rax],al
+2F56F086CE0: 00 00                          - add [rax],al
+2F56F086CE2: 00 00                          - add [rax],al
+2F56F086CE4: 00 00                          - add [rax],al
+2F56F086CE6: 00 00                          - add [rax],al
+2F56F086CE8: 00 00                          - add [rax],al
+2F56F086CEA: 00 00                          - add [rax],al
+2F56F086CEC: 00 00                          - add [rax],al
+2F56F086CEE: 00 00                          - add [rax],al
+2F56F086CF0: 00 00                          - add [rax],al
+2F56F086CF2: 49 BB 20 02 6A 9B F3 02 00 00  - mov r11,000002F39B6A0220
+2F56F086CFC: 41 FF D3                       - call r11
+2F56F086CFF: 08 10                          - or [rax],dl
+2F56F086D01: 03 57 70                       - add edx,[rdi+70]
+2F56F086D04: F5                             - cmc 
+2F56F086D05: 02 00                          - add al,[rax]
+2F56F086D07: 00 00                          - add [rax],al
+2F56F086D09: 00 00                          - add [rax],al
+2F56F086D0B: 00 00                          - add [rax],al
+2F56F086D0D: 00 00                          - add [rax],al
+2F56F086D0F: 00                             - db 00 
+FirstPersonController:Update: 55                             - push rbp
+FirstPersonController:Update+1: 48 8B EC                       - mov rbp,rsp
+FirstPersonController:Update+4: 48 83 EC 30                    - sub rsp,30
+FirstPersonController:Update+8: 48 89 75 F8                    - mov [rbp-08],rsi
+// ---------- INJECTING HERE ----------
+FirstPersonController:Update+c: 48 8B F1                       - mov rsi,rcx
+// ---------- DONE INJECTING  ----------
+FirstPersonController:Update+f: 0F B6 46 58                    - movzx eax,byte ptr [rsi+58]
+FirstPersonController:Update+13: 85 C0                          - test eax,eax
+FirstPersonController:Update+15: 0F 84 F8 00 00 00              - je FirstPersonController:Update+113
+FirstPersonController:Update+1b: 48 8B 46 30                    - mov rax,[rsi+30]
+FirstPersonController:Update+1f: 0F B6 40 70                    - movzx eax,byte ptr [rax+70]
+FirstPersonController:Update+23: 85 C0                          - test eax,eax
+FirstPersonController:Update+25: 0F 85 E8 00 00 00              - jne FirstPersonController:Update+113
+FirstPersonController:Update+2b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+2e: 49 BB D0 6F 08 6F F5 02 00 00  - mov r11,FirstPersonController:HandleMovementInput
+FirstPersonController:Update+38: 41 FF D3                       - call r11
+FirstPersonController:Update+3b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+3e: 49 BB 30 7B 08 6F F5 02 00 00  - mov r11,FirstPersonController:HandleMouseLook
+FirstPersonController:Update+48: 41 FF D3                       - call r11
+FirstPersonController:Update+4b: 0F B6 46 5A                    - movzx eax,byte ptr [rsi+5A]
+FirstPersonController:Update+4f: 85 C0                          - test eax,eax
+FirstPersonController:Update+51: 74 10                          - je FirstPersonController:Update+63
+FirstPersonController:Update+53: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+56: 49 BB 53 6F 08 6F F5 02 00 00  - mov r11,000002F56F086F53
+FirstPersonController:Update+60: 41 FF D3                       - call r11
+FirstPersonController:Update+63: 0F B6 46 5B                    - movzx eax,byte ptr [rsi+5B]
+FirstPersonController:Update+67: 85 C0                          - test eax,eax
+FirstPersonController:Update+69: 74 10                          - je FirstPersonController:Update+7b
+FirstPersonController:Update+6b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+6e: 49 BB 50 7E 08 6F F5 02 00 00  - mov r11,000002F56F087E50
+FirstPersonController:Update+78: 41 FF D3                       - call r11
+FirstPersonController:Update+7b: 0F B6 46 5C                    - movzx eax,byte ptr [rsi+5C]
+FirstPersonController:Update+7f: 85 C0                          - test eax,eax
+FirstPersonController:Update+81: 74 10                          - je FirstPersonController:Update+93
+FirstPersonController:Update+83: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+86: 49 BB C0 7F 08 6F F5 02 00 00  - mov r11,000002F56F087FC0
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>13</ID>
+              <Description>"&lt;CanMove&gt;k__BackingField"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas]+58</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>14</ID>
+              <Description>"canSprint"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas]+59</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>15</ID>
+              <Description>"canJump"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas]+5A</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>16</ID>
+              <Description>"jumpForce"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[bas]+A0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>17</ID>
+              <Description>"canCrouch"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas]+5B</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>18</ID>
+              <Description>"canUseHeadBop"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas]+5C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>19</ID>
+              <Description>"canZoomIn"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas]+5E</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>20</ID>
+              <Description>"crouchSpeed"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas]+78</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>21</ID>
+              <Description>"iWalkspeed"</Description>
+              <Options moRecursiveSetValue="1" moAlwaysHideChildren="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas]+F8</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>22</ID>
+                  <Description>"walkSpeed"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas]+70</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>23</ID>
+                  <Description>"walkSpeed"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas]+38</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>30</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>24</ID>
+                  <Description>"walkSpeed"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas]+38</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>38</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>25</ID>
+              <Description>"iSprintSpeed"</Description>
+              <Options moRecursiveSetValue="1" moAlwaysHideChildren="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas]+FC</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>26</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas]+74</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>27</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas]+38</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>30</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>28</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas]+38</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>38</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>29</ID>
+              <Description>"gravity"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas]+A4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>30</ID>
+              <Description>"startFov"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas]+128</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>31</ID>
+              <Description>"readingTime (100 for achievement)"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[bas]+30</Address>
+              <Offsets>
+                <Offset>20</Offset>
+                <Offset>28</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>32</ID>
+              <Description>"isDead"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[bas]+30</Address>
+              <Offsets>
+                <Offset>A8</Offset>
+                <Offset>38</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>33</ID>
+          <Description>"Get Player Fears 3"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : Fears To Fathom - Norwood Hitchhike.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+if getOpenedProcessID()~=getProcessIDFromProcessName('Fears To Fathom - Carson House.exe') then error('Wrong game') end
+{$asm}
+define(player,FirstPersonController:Update)
+alloc(newmem,128,player)
+
+registersymbol(player player_Orig bas11)
+label(return player_Orig bas11)
+
+newmem:
+  mov [bas11],rcx
+player_Orig:
+  readmem(player,8)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,30
+  jmp return
+
+bas11:
+  dq 0
+
+player:
+  jmp newmem
+  nop 3
+return:
+
+[DISABLE]
+
+player:
+  readmem(player_Orig,8)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: FirstPersonController:Update
+
+2F56F086CCF: 00 41 FF                       - add [rcx-01],al
+2F56F086CD2: D3 08                          - ror [rax],cl
+2F56F086CD4: 90                             - nop 
+2F56F086CD5: 89 0F                          - mov [rdi],ecx
+2F56F086CD7: F2 F7 02 00 00 00 00           - repne test [rdx],00000000
+2F56F086CDE: 00 00                          - add [rax],al
+2F56F086CE0: 00 00                          - add [rax],al
+2F56F086CE2: 00 00                          - add [rax],al
+2F56F086CE4: 00 00                          - add [rax],al
+2F56F086CE6: 00 00                          - add [rax],al
+2F56F086CE8: 00 00                          - add [rax],al
+2F56F086CEA: 00 00                          - add [rax],al
+2F56F086CEC: 00 00                          - add [rax],al
+2F56F086CEE: 00 00                          - add [rax],al
+2F56F086CF0: 00 00                          - add [rax],al
+2F56F086CF2: 49 BB 20 02 6A 9B F3 02 00 00  - mov r11,000002F39B6A0220
+2F56F086CFC: 41 FF D3                       - call r11
+2F56F086CFF: 08 10                          - or [rax],dl
+2F56F086D01: 03 57 70                       - add edx,[rdi+70]
+2F56F086D04: F5                             - cmc 
+2F56F086D05: 02 00                          - add al,[rax]
+2F56F086D07: 00 00                          - add [rax],al
+2F56F086D09: 00 00                          - add [rax],al
+2F56F086D0B: 00 00                          - add [rax],al
+2F56F086D0D: 00 00                          - add [rax],al
+2F56F086D0F: 00                             - db 00 
+FirstPersonController:Update: 55                             - push rbp
+FirstPersonController:Update+1: 48 8B EC                       - mov rbp,rsp
+FirstPersonController:Update+4: 48 83 EC 30                    - sub rsp,30
+FirstPersonController:Update+8: 48 89 75 F8                    - mov [rbp-08],rsi
+// ---------- INJECTING HERE ----------
+FirstPersonController:Update+c: 48 8B F1                       - mov rsi,rcx
+// ---------- DONE INJECTING  ----------
+FirstPersonController:Update+f: 0F B6 46 58                    - movzx eax,byte ptr [rsi+58]
+FirstPersonController:Update+13: 85 C0                          - test eax,eax
+FirstPersonController:Update+15: 0F 84 F8 00 00 00              - je FirstPersonController:Update+113
+FirstPersonController:Update+1b: 48 8B 46 30                    - mov rax,[rsi+30]
+FirstPersonController:Update+1f: 0F B6 40 70                    - movzx eax,byte ptr [rax+70]
+FirstPersonController:Update+23: 85 C0                          - test eax,eax
+FirstPersonController:Update+25: 0F 85 E8 00 00 00              - jne FirstPersonController:Update+113
+FirstPersonController:Update+2b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+2e: 49 BB D0 6F 08 6F F5 02 00 00  - mov r11,FirstPersonController:HandleMovementInput
+FirstPersonController:Update+38: 41 FF D3                       - call r11
+FirstPersonController:Update+3b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+3e: 49 BB 30 7B 08 6F F5 02 00 00  - mov r11,FirstPersonController:HandleMouseLook
+FirstPersonController:Update+48: 41 FF D3                       - call r11
+FirstPersonController:Update+4b: 0F B6 46 5A                    - movzx eax,byte ptr [rsi+5A]
+FirstPersonController:Update+4f: 85 C0                          - test eax,eax
+FirstPersonController:Update+51: 74 10                          - je FirstPersonController:Update+63
+FirstPersonController:Update+53: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+56: 49 BB 53 6F 08 6F F5 02 00 00  - mov r11,000002F56F086F53
+FirstPersonController:Update+60: 41 FF D3                       - call r11
+FirstPersonController:Update+63: 0F B6 46 5B                    - movzx eax,byte ptr [rsi+5B]
+FirstPersonController:Update+67: 85 C0                          - test eax,eax
+FirstPersonController:Update+69: 74 10                          - je FirstPersonController:Update+7b
+FirstPersonController:Update+6b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+6e: 49 BB 50 7E 08 6F F5 02 00 00  - mov r11,000002F56F087E50
+FirstPersonController:Update+78: 41 FF D3                       - call r11
+FirstPersonController:Update+7b: 0F B6 46 5C                    - movzx eax,byte ptr [rsi+5C]
+FirstPersonController:Update+7f: 85 C0                          - test eax,eax
+FirstPersonController:Update+81: 74 10                          - je FirstPersonController:Update+93
+FirstPersonController:Update+83: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+86: 49 BB C0 7F 08 6F F5 02 00 00  - mov r11,000002F56F087FC0
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>34</ID>
+              <Description>"easy win flag game"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{Game  : Fears To Fathom - Carson House.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+aobscanregion(flaggame,bl_GameManager:SetSelection,bl_GameManager:SetSelection+82,75 ? 48 8B ? 48 8D ? ? ? 49 BB ? ? ? ? ? ? ? ? 41 FF ? B8)
+alloc(newmem,128,flaggame)
+
+registersymbol(flaggame flaggame_Orig)
+label(return flaggame_Orig)
+
+newmem:
+
+flaggame_Orig:
+  readmem(flaggame,5)
+  //jne bl_GameManager:SetSelection+5a
+  //mov rcx,rdi
+  jmp return
+
+flaggame:
+  db 90 90
+return:
+
+[DISABLE]
+
+flaggame:
+  readmem(flaggame_Orig,5)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: bl_GameManager:SetSelection+3c
+
+21BC42FFC08: 00 00                          - add [rax],al
+21BC42FFC0A: 00 00                          - add [rax],al
+21BC42FFC0C: 00 00                          - add [rax],al
+21BC42FFC0E: 00 00                          - add [rax],al
+21BC42FFC10: 00 00                          - add [rax],al
+21BC42FFC12: 49 BB 20 02 0D 07 1A 02 00 00  - mov r11,0000021A070D0220
+21BC42FFC1C: 41 FF D3                       - call r11
+21BC42FFC1F: 08 90 81 37 BA 1B              - or [rax+1BBA3781],dl
+21BC42FFC25: 02 00                          - add al,[rax]
+21BC42FFC27: 00 00                          - add [rax],al
+21BC42FFC29: 00 00                          - add [rax],al
+21BC42FFC2B: 00 00                          - add [rax],al
+21BC42FFC2D: 00 00                          - add [rax],al
+21BC42FFC2F: 00 55 48                       - add [rbp+48],dl
+bl_GameManager:SetSelection+2: 8B EC                          - mov ebp,esp
+bl_GameManager:SetSelection+4: 48 83 EC 30                    - sub rsp,30
+bl_GameManager:SetSelection+8: 48 89 75 F0                    - mov [rbp-10],rsi
+bl_GameManager:SetSelection+c: 48 89 7D F8                    - mov [rbp-08],rdi
+bl_GameManager:SetSelection+10: 48 8B F9                       - mov rdi,rcx
+bl_GameManager:SetSelection+13: 48 8B F2                       - mov rsi,rdx
+bl_GameManager:SetSelection+16: 48 8B 47 38                    - mov rax,[rdi+38]
+bl_GameManager:SetSelection+1a: 48 8B C8                       - mov rcx,rax
+bl_GameManager:SetSelection+1d: BA 01 00 00 00                 - mov edx,00000001
+bl_GameManager:SetSelection+22: 83 38 00                       - cmp dword ptr [rax],00
+bl_GameManager:SetSelection+25: 90                             - nop 
+bl_GameManager:SetSelection+26: 49 BB E0 E1 C4 1E 1D 02 00 00  - mov r11,UnityEngine.GameObject:SetActive
+bl_GameManager:SetSelection+30: 41 FF D3                       - call r11
+bl_GameManager:SetSelection+33: 48 63 87 98 00 00 00           - movsxd  rax,dword ptr [rdi+00000098]
+bl_GameManager:SetSelection+3a: 3B F0                          - cmp esi,eax
+bl_GameManager:SetSelection+3c: 75 1C                          - jne bl_GameManager:SetSelection+5a
+// ---------- INJECTING HERE ----------
+bl_GameManager:SetSelection+3e: 48 8B CF                       - mov rcx,rdi
+// ---------- DONE INJECTING  ----------
+bl_GameManager:SetSelection+41: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+bl_GameManager:SetSelection+46: 49 BB 20 FD 2F C4 1B 02 00 00  - mov r11,bl_GameManager:Correct
+bl_GameManager:SetSelection+50: 41 FF D3                       - call r11
+bl_GameManager:SetSelection+53: B8 01 00 00 00                 - mov eax,00000001
+bl_GameManager:SetSelection+58: EB 1B                          - jmp bl_GameManager:SetSelection+75
+bl_GameManager:SetSelection+5a: 48 8B CF                       - mov rcx,rdi
+bl_GameManager:SetSelection+5d: 48 8B D6                       - mov rdx,rsi
+bl_GameManager:SetSelection+60: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+bl_GameManager:SetSelection+65: 90                             - nop 
+bl_GameManager:SetSelection+66: 49 BB 40 03 30 C4 1B 02 00 00  - mov r11,bl_GameManager:InCorrect
+bl_GameManager:SetSelection+70: 41 FF D3                       - call r11
+bl_GameManager:SetSelection+73: 33 C0                          - xor eax,eax
+bl_GameManager:SetSelection+75: 48 8B 75 F0                    - mov rsi,[rbp-10]
+bl_GameManager:SetSelection+79: 48 8B 7D F8                    - mov rdi,[rbp-08]
+bl_GameManager:SetSelection+7d: 48 8D 65 00                    - lea rsp,[rbp+00]
+bl_GameManager:SetSelection+81: 5D                             - pop rbp
+bl_GameManager:SetSelection+82: C3                             - ret 
+21BC42FFCB3: 00 00                          - add [rax],al
+21BC42FFCB5: 00 00                          - add [rax],al
+21BC42FFCB7: 00 01                          - add [rcx],al
+21BC42FFCB9: 04 02                          - add al,02
+21BC42FFCBB: 05 04 03 01 50                 - add eax,50010304
+21BC42FFCC0: 00 00                          - add [rax],al
+21BC42FFCC2: 00 00                          - add [rax],al
+21BC42FFCC4: 00 00                          - add [rax],al
+21BC42FFCC6: 00 00                          - add [rax],al
+21BC42FFCC8: 00 00                          - add [rax],al
+21BC42FFCCA: 00 00                          - add [rax],al
+21BC42FFCCC: 00 00                          - add [rax],al
+21BC42FFCCE: 00 00                          - add [rax],al
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>35</ID>
+              <Description>"get Bike"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{Game  : Fears To Fathom - Carson House.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(bike,BikeEP3:Update)
+define(bike1,MovingBikeEP3:Update)
+alloc(newmem,128,bike)
+alloc(newmem1,128,bike1)
+
+registersymbol(bike bike_Orig bike1 bike1_Orig B_bas B_bas1)
+label(return return1 bike_Orig bike1_Orig B_bas B_bas1)
+
+newmem:
+  mov [B_bas],rcx
+bike_Orig:
+  readmem(bike,11)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,000001B0
+  jmp return
+
+B_bas:
+  dq 0
+
+newmem1:
+  mov [B_bas1],rcx
+bike1_Orig:
+  readmem(bike,11)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,000001B0
+  jmp return
+
+B_bas1:
+  dq 0
+
+bike:
+  jmp newmem
+  nop 6
+return:
+
+bike1:
+  jmp newmem1
+  nop 6
+return1:
+
+[DISABLE]
+
+bike:
+  readmem(bike_Orig,11)
+
+bike1:
+  readmem(bike1_Orig,11)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: BikeEP3:Update
+
+ElectricityBox:Update+550: 41 FF D3                       - call r11
+ElectricityBox:Update+553: 48 8B 75 F8                    - mov rsi,[rbp-08]
+ElectricityBox:Update+557: 48 8D 65 00                    - lea rsp,[rbp+00]
+ElectricityBox:Update+55b: 5D                             - pop rbp
+ElectricityBox:Update+55c: C3                             - ret 
+ElectricityBox:Update+55d: 00 00                          - add [rax],al
+ElectricityBox:Update+55f: 00 00                          - add [rax],al
+ElectricityBox:Update+561: 00 40 40                       - add [rax+40],al
+21BC41F6184: 00 00                          - add [rax],al
+21BC41F6186: 00 00                          - add [rax],al
+21BC41F6188: 01 04 02                       - add [rdx+rax],eax
+21BC41F618B: 05 04 03 01 50                 - add eax,50010304
+21BC41F6190: 00 00                          - add [rax],al
+21BC41F6192: 00 00                          - add [rax],al
+21BC41F6194: 00 00                          - add [rax],al
+21BC41F6196: 00 00                          - add [rax],al
+21BC41F6198: 00 00                          - add [rax],al
+21BC41F619A: 00 00                          - add [rax],al
+21BC41F619C: 00 00                          - add [rax],al
+21BC41F619E: 00 00                          - add [rax],al
+21BC41F61A0: 00 00                          - add [rax],al
+21BC41F61A2: 49 BB 20 02 0D 07 1A 02 00 00  - mov r11,0000021A070D0220
+21BC41F61AC: 41 FF D3                       - call r11
+21BC41F61AF: 08 A0 E4 87 BA 1B              - or [rax+1BBA87E4],ah
+21BC41F61B5: 02 00                          - add al,[rax]
+21BC41F61B7: 00 00                          - add [rax],al
+21BC41F61B9: 00 00                          - add [rax],al
+21BC41F61BB: 00 00                          - add [rax],al
+21BC41F61BD: 00 00                          - add [rax],al
+21BC41F61BF: 00                             - db 00 
+// ---------- INJECTING HERE ----------
+BikeEP3:Update: 55                             - push rbp
+// ---------- DONE INJECTING  ----------
+BikeEP3:Update+1: 48 8B EC                       - mov rbp,rsp
+BikeEP3:Update+4: 48 81 EC B0 01 00 00           - sub rsp,000001B0
+BikeEP3:Update+b: 48 89 75 F8                    - mov [rbp-08],rsi
+BikeEP3:Update+f: 48 8B F1                       - mov rsi,rcx
+BikeEP3:Update+12: C7 85 88 FE FF FF 00 00 00 00  - mov [rbp-00000178],00000000
+BikeEP3:Update+1c: C7 85 8C FE FF FF 00 00 00 00  - mov [rbp-00000174],00000000
+BikeEP3:Update+26: C7 85 90 FE FF FF 00 00 00 00  - mov [rbp-00000170],00000000
+BikeEP3:Update+30: C7 85 94 FE FF FF 00 00 00 00  - mov [rbp-0000016C],00000000
+BikeEP3:Update+3a: C7 85 98 FE FF FF 00 00 00 00  - mov [rbp-00000168],00000000
+BikeEP3:Update+44: C7 85 9C FE FF FF 00 00 00 00  - mov [rbp-00000164],00000000
+BikeEP3:Update+4e: C7 85 A0 FE FF FF 00 00 00 00  - mov [rbp-00000160],00000000
+BikeEP3:Update+58: C7 85 A4 FE FF FF 00 00 00 00  - mov [rbp-0000015C],00000000
+BikeEP3:Update+62: C7 85 A8 FE FF FF 00 00 00 00  - mov [rbp-00000158],00000000
+BikeEP3:Update+6c: C7 85 AC FE FF FF 00 00 00 00  - mov [rbp-00000154],00000000
+BikeEP3:Update+76: C7 85 B0 FE FF FF 00 00 00 00  - mov [rbp-00000150],00000000
+BikeEP3:Update+80: C7 85 B8 FE FF FF 00 00 00 00  - mov [rbp-00000148],00000000
+BikeEP3:Update+8a: C7 85 BC FE FF FF 00 00 00 00  - mov [rbp-00000144],00000000
+BikeEP3:Update+94: C7 85 C0 FE FF FF 00 00 00 00  - mov [rbp-00000140],00000000
+BikeEP3:Update+9e: C7 85 C4 FE FF FF 00 00 00 00  - mov [rbp-0000013C],00000000
+BikeEP3:Update+a8: 48 8B 86 98 00 00 00           - mov rax,[rsi+00000098]
+BikeEP3:Update+af: 0F B6 40 40                    - movzx eax,byte ptr [rax+40]
+BikeEP3:Update+b3: 85 C0                          - test eax,eax
+BikeEP3:Update+b5: 0F 84 3B 00 00 00              - je BikeEP3:Update+f6
+BikeEP3:Update+bb: B9 30 01 00 00                 - mov ecx,00000130
+BikeEP3:Update+c0: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+BikeEP3:Update+c5: 90                             - nop 
+BikeEP3:Update+c6: 49 BB 13 91 E7 3E 1D 02 00 00  - mov r11,0000021D3EE79113
+BikeEP3:Update+d0: 41 FF D3                       - call r11
+BikeEP3:Update+d3: 85 C0                          - test eax,eax
+BikeEP3:Update+d5: 74 1F                          - je BikeEP3:Update+f6
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>36</ID>
+                  <Description>"Before Store"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>37</ID>
+                      <Description>"isSitting"</Description>
+                      <VariableType>Byte</VariableType>
+                      <Address>[B_bas]+BC</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>38</ID>
+                      <Description>"motorForce"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>[B_bas]+D0</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>39</ID>
+                      <Description>"reverseMotorForce"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>[B_bas]+D4</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>40</ID>
+                      <Description>"accelerateValue"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>[B_bas]+D8</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>41</ID>
+                      <Description>"speed"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>[B_bas]+DC</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>42</ID>
+                      <Description>"handelingFactor"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>[B_bas]+E0</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>43</ID>
+                      <Description>"canGetOut"</Description>
+                      <VariableType>Byte</VariableType>
+                      <Address>[B_bas]+F5</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>44</ID>
+                      <Description>"hitCooldown"</Description>
+                      <VariableType>Byte</VariableType>
+                      <Address>[B_bas]+F6</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>45</ID>
+                  <Description>"After Store"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>46</ID>
+                      <Description>"isSitting"</Description>
+                      <VariableType>Byte</VariableType>
+                      <Address>[B_bas1]+CC</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>47</ID>
+                      <Description>"motorForce"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>[B_bas1]+E0</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>48</ID>
+                      <Description>"reverseMotorForce"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>[B_bas1]+E4</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>49</ID>
+                      <Description>"accelerateValue"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>[B_bas1]+E8</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>50</ID>
+                      <Description>"speed"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>[B_bas1]+EC</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>51</ID>
+                      <Description>"handelingFactor"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>[B_bas1]+F0</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>52</ID>
+                      <Description>"canGetOut"</Description>
+                      <VariableType>Byte</VariableType>
+                      <Address>[B_bas1]+105</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>53</ID>
+                      <Description>"hitCooldown"</Description>
+                      <VariableType>Byte</VariableType>
+                      <Address>[B_bas1]+106</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>54</ID>
+                      <Description>"itemsBought"</Description>
+                      <VariableType>Byte</VariableType>
+                      <Address>[B_bas1]+111</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>55</ID>
+                      <Description>"autoMoveOnStart"</Description>
+                      <VariableType>Byte</VariableType>
+                      <Address>[B_bas1]+112</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>56</ID>
+                      <Description>"groInHandOnce"</Description>
+                      <VariableType>Byte</VariableType>
+                      <Address>[B_bas1]+113</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>57</ID>
+              <Description>"&lt;CanMove&gt;k__BackingField"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas11]+50</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>58</ID>
+              <Description>"canSprint"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas11]+51</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>59</ID>
+              <Description>"canJump"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas11]+52</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>60</ID>
+              <Description>"jumpForce"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas11]+98</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>61</ID>
+              <Description>"canCrouch"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas11]+53</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>62</ID>
+              <Description>"canUseHeadBop"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas11]+54</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>63</ID>
+              <Description>"canZoomIn"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas11]+56</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>64</ID>
+              <Description>"crouchSpeed"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas11]+70</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>65</ID>
+              <Description>"walkSpeed"</Description>
+              <Options moRecursiveSetValue="1" moAlwaysHideChildren="1" moActivateChildrenAsWell="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas11]+68</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>66</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas11]+30</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>30</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>67</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas11]+30</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>38</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>68</ID>
+                  <Description>"iWalkspeed"</Description>
+                  <Options moRecursiveSetValue="1"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas11]+F0</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>69</ID>
+              <Description>"sprintSpeed"</Description>
+              <Options moRecursiveSetValue="1" moAlwaysHideChildren="1" moActivateChildrenAsWell="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas11]+6C</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>70</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas11]+30</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>30</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>71</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas11]+30</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>38</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>72</ID>
+                  <Description>"iSprintSpeed"</Description>
+                  <Options moRecursiveSetValue="1"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas11]+F4</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>73</ID>
+              <Description>"gravity"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas11]+9C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>74</ID>
+              <Description>"startFov"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas11]+120</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>75</ID>
+              <Description>"readingTime (120 for achievement)"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas11]+48</Address>
+              <Offsets>
+                <Offset>20</Offset>
+                <Offset>28</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>76</ID>
+              <Description>"reading Time required for reading achievement"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>steamAch:Update+70</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>77</ID>
+          <Description>"Get Player Fears 4"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : Fears To Fathom - Norwood Hitchhike.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+if getOpenedProcessID()~=getProcessIDFromProcessName('Fears to Fathom - Ironbark Lookout.exe') then error('Wrong game') end
+{$asm}
+define(player,FirstPersonController:Update)
+alloc(newmem,128,player)
+
+registersymbol(player player_Orig bas12)
+label(return player_Orig bas12)
+
+newmem:
+  mov [bas12],rcx
+player_Orig:
+  readmem(player,8)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,30
+  jmp return
+
+bas12:
+  dq 0
+
+player:
+  jmp newmem
+  nop 3
+return:
+
+[DISABLE]
+
+player:
+  readmem(player_Orig,8)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: FirstPersonController:Update
+
+2F56F086CCF: 00 41 FF                       - add [rcx-01],al
+2F56F086CD2: D3 08                          - ror [rax],cl
+2F56F086CD4: 90                             - nop
+2F56F086CD5: 89 0F                          - mov [rdi],ecx
+2F56F086CD7: F2 F7 02 00 00 00 00           - repne test [rdx],00000000
+2F56F086CDE: 00 00                          - add [rax],al
+2F56F086CE0: 00 00                          - add [rax],al
+2F56F086CE2: 00 00                          - add [rax],al
+2F56F086CE4: 00 00                          - add [rax],al
+2F56F086CE6: 00 00                          - add [rax],al
+2F56F086CE8: 00 00                          - add [rax],al
+2F56F086CEA: 00 00                          - add [rax],al
+2F56F086CEC: 00 00                          - add [rax],al
+2F56F086CEE: 00 00                          - add [rax],al
+2F56F086CF0: 00 00                          - add [rax],al
+2F56F086CF2: 49 BB 20 02 6A 9B F3 02 00 00  - mov r11,000002F39B6A0220
+2F56F086CFC: 41 FF D3                       - call r11
+2F56F086CFF: 08 10                          - or [rax],dl
+2F56F086D01: 03 57 70                       - add edx,[rdi+70]
+2F56F086D04: F5                             - cmc
+2F56F086D05: 02 00                          - add al,[rax]
+2F56F086D07: 00 00                          - add [rax],al
+2F56F086D09: 00 00                          - add [rax],al
+2F56F086D0B: 00 00                          - add [rax],al
+2F56F086D0D: 00 00                          - add [rax],al
+2F56F086D0F: 00                             - db 00
+FirstPersonController:Update: 55                             - push rbp
+FirstPersonController:Update+1: 48 8B EC                       - mov rbp,rsp
+FirstPersonController:Update+4: 48 83 EC 30                    - sub rsp,30
+FirstPersonController:Update+8: 48 89 75 F8                    - mov [rbp-08],rsi
+// ---------- INJECTING HERE ----------
+FirstPersonController:Update+c: 48 8B F1                       - mov rsi,rcx
+// ---------- DONE INJECTING  ----------
+FirstPersonController:Update+f: 0F B6 46 58                    - movzx eax,byte ptr [rsi+58]
+FirstPersonController:Update+13: 85 C0                          - test eax,eax
+FirstPersonController:Update+15: 0F 84 F8 00 00 00              - je FirstPersonController:Update+113
+FirstPersonController:Update+1b: 48 8B 46 30                    - mov rax,[rsi+30]
+FirstPersonController:Update+1f: 0F B6 40 70                    - movzx eax,byte ptr [rax+70]
+FirstPersonController:Update+23: 85 C0                          - test eax,eax
+FirstPersonController:Update+25: 0F 85 E8 00 00 00              - jne FirstPersonController:Update+113
+FirstPersonController:Update+2b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+2e: 49 BB D0 6F 08 6F F5 02 00 00  - mov r11,FirstPersonController:HandleMovementInput
+FirstPersonController:Update+38: 41 FF D3                       - call r11
+FirstPersonController:Update+3b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+3e: 49 BB 30 7B 08 6F F5 02 00 00  - mov r11,FirstPersonController:HandleMouseLook
+FirstPersonController:Update+48: 41 FF D3                       - call r11
+FirstPersonController:Update+4b: 0F B6 46 5A                    - movzx eax,byte ptr [rsi+5A]
+FirstPersonController:Update+4f: 85 C0                          - test eax,eax
+FirstPersonController:Update+51: 74 10                          - je FirstPersonController:Update+63
+FirstPersonController:Update+53: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+56: 49 BB 53 6F 08 6F F5 02 00 00  - mov r11,000002F56F086F53
+FirstPersonController:Update+60: 41 FF D3                       - call r11
+FirstPersonController:Update+63: 0F B6 46 5B                    - movzx eax,byte ptr [rsi+5B]
+FirstPersonController:Update+67: 85 C0                          - test eax,eax
+FirstPersonController:Update+69: 74 10                          - je FirstPersonController:Update+7b
+FirstPersonController:Update+6b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+6e: 49 BB 50 7E 08 6F F5 02 00 00  - mov r11,000002F56F087E50
+FirstPersonController:Update+78: 41 FF D3                       - call r11
+FirstPersonController:Update+7b: 0F B6 46 5C                    - movzx eax,byte ptr [rsi+5C]
+FirstPersonController:Update+7f: 85 C0                          - test eax,eax
+FirstPersonController:Update+81: 74 10                          - je FirstPersonController:Update+93
+FirstPersonController:Update+83: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+86: 49 BB C0 7F 08 6F F5 02 00 00  - mov r11,000002F56F087FC0
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>78</ID>
+              <Description>"Get Car"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{Game  : Fears to Fathom - Ironbark Lookout.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(Car4,carEP2:Update)
+alloc(newmem,128,Car4)
+
+registersymbol(Car4 Car4_Orig C_bas)
+label(return Car4_Orig C_bas)
+
+newmem:
+  mov [C_bas],rcx
+Car4_Orig:
+  readmem(Car4,11)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,00000120
+  jmp return
+
+C_bas:
+  dq 0
+
+Car4:
+  jmp newmem
+  nop 6
+return:
+
+[DISABLE]
+
+Car4:
+  readmem(Car4_Orig,11)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: carEP2:Update
+
+&lt;Module&gt;:runtime_invoke_void__this___byte+fc: 4C 8B 75 F0                    - mov r14,[rbp-10]
+&lt;Module&gt;:runtime_invoke_void__this___byte+100: 4C 8B 7D F8                    - mov r15,[rbp-08]
+&lt;Module&gt;:runtime_invoke_void__this___byte+104: 48 8D 65 00                    - lea rsp,[rbp+00]
+&lt;Module&gt;:runtime_invoke_void__this___byte+108: 5D                             - pop rbp
+&lt;Module&gt;:runtime_invoke_void__this___byte+109: C3                             - ret 
+&lt;Module&gt;:runtime_invoke_void__this___byte+10a: 48 8D 6D 00                    - lea rbp,[rbp+00]
+&lt;Module&gt;:runtime_invoke_void__this___byte+10e: 49 BB 69 0C FD F3 71 01 00 00  - mov r11,00000171F3FD0C69
+&lt;Module&gt;:runtime_invoke_void__this___byte+118: 41 FF D3                       - call r11
+&lt;Module&gt;:runtime_invoke_void__this___byte+11b: 48 8B C8                       - mov rcx,rax
+&lt;Module&gt;:runtime_invoke_void__this___byte+11e: 4C 8B F1                       - mov r14,rcx
+&lt;Module&gt;:runtime_invoke_void__this___byte+121: 48 85 C0                       - test rax,rax
+&lt;Module&gt;:runtime_invoke_void__this___byte+124: 74 BF                          - je &lt;Module&gt;:runtime_invoke_void__this___byte+e5
+&lt;Module&gt;:runtime_invoke_void__this___byte+126: 49 8D 86 88 00 00 00           - lea rax,[r14+00000088]
+&lt;Module&gt;:runtime_invoke_void__this___byte+12d: C7 00 01 00 00 00              - mov [rax],00000001
+&lt;Module&gt;:runtime_invoke_void__this___byte+133: 49 8B CE                       - mov rcx,r14
+&lt;Module&gt;:runtime_invoke_void__this___byte+136: 49 BB C0 19 72 F1 71 01 00 00  - mov r11,00000171F17219C0
+&lt;Module&gt;:runtime_invoke_void__this___byte+140: 41 FF D3                       - call r11
+174053C4603: 00 00                          - add [rax],al
+174053C4605: 00 00                          - add [rax],al
+174053C4607: 00 01                          - add [rcx],al
+174053C4609: 04 02                          - add al,02
+174053C460B: 05 04 03 01 50                 - add eax,50010304
+174053C4610: 00 00                          - add [rax],al
+174053C4612: 00 00                          - add [rax],al
+174053C4614: 00 00                          - add [rax],al
+174053C4616: 00 00                          - add [rax],al
+174053C4618: 00 00                          - add [rax],al
+174053C461A: 00 00                          - add [rax],al
+174053C461C: 00 00                          - add [rax],al
+174053C461E: 00 00                          - add [rax],al
+// ---------- INJECTING HERE ----------
+carEP2:Update: 55                             - push rbp
+// ---------- DONE INJECTING  ----------
+carEP2:Update+1: 48 8B EC                       - mov rbp,rsp
+carEP2:Update+4: 48 81 EC 20 01 00 00           - sub rsp,00000120
+carEP2:Update+b: 48 89 75 F8                    - mov [rbp-08],rsi
+carEP2:Update+f: 48 8B F1                       - mov rsi,rcx
+carEP2:Update+12: C7 85 18 FF FF FF 00 00 00 00  - mov [rbp-000000E8],00000000
+carEP2:Update+1c: C7 85 1C FF FF FF 00 00 00 00  - mov [rbp-000000E4],00000000
+carEP2:Update+26: C7 85 20 FF FF FF 00 00 00 00  - mov [rbp-000000E0],00000000
+carEP2:Update+30: C7 85 24 FF FF FF 00 00 00 00  - mov [rbp-000000DC],00000000
+carEP2:Update+3a: C7 85 28 FF FF FF 00 00 00 00  - mov [rbp-000000D8],00000000
+carEP2:Update+44: C7 85 2C FF FF FF 00 00 00 00  - mov [rbp-000000D4],00000000
+carEP2:Update+4e: C7 85 30 FF FF FF 00 00 00 00  - mov [rbp-000000D0],00000000
+carEP2:Update+58: C7 85 34 FF FF FF 00 00 00 00  - mov [rbp-000000CC],00000000
+carEP2:Update+62: C7 85 38 FF FF FF 00 00 00 00  - mov [rbp-000000C8],00000000
+carEP2:Update+6c: C7 85 3C FF FF FF 00 00 00 00  - mov [rbp-000000C4],00000000
+carEP2:Update+76: C7 85 40 FF FF FF 00 00 00 00  - mov [rbp-000000C0],00000000
+carEP2:Update+80: F3 0F 10 86 40 01 00 00        - movss xmm0,[rsi+00000140]
+carEP2:Update+88: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+carEP2:Update+8c: F3 0F 10 0D FC 05 00 00        - movss xmm1,[carEP2:Update+690]
+carEP2:Update+94: F3 0F 5A C9                    - cvtss2sd xmm1,xmm1
+carEP2:Update+98: 66 0F 2F C8                    - comisd xmm1,xmm0
+carEP2:Update+9c: 0F 8A C1 00 00 00              - jp carEP2:Update+163
+carEP2:Update+a2: 0F 83 BB 00 00 00              - jae carEP2:Update+163
+carEP2:Update+a8: F3 0F 10 86 50 01 00 00        - movss xmm0,[rsi+00000150]
+carEP2:Update+b0: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+carEP2:Update+b4: F3 0F 10 0D C4 05 00 00        - movss xmm1,[carEP2:Update+680]
+carEP2:Update+bc: F3 0F 5A C9                    - cvtss2sd xmm1,xmm1
+carEP2:Update+c0: 66 0F 2F C8                    - comisd xmm1,xmm0
+carEP2:Update+c4: 0F 86 99 00 00 00              - jbe carEP2:Update+163
+carEP2:Update+ca: 0F B6 86 56 01 00 00           - movzx eax,byte ptr [rsi+00000156]
+carEP2:Update+d1: 85 C0                          - test eax,eax
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>79</ID>
+                  <Description>"No description"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>C_bas</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>80</ID>
+              <Description>"Get Minigame"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{Game  : Fears to Fathom - Ironbark Lookout.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(minigame,MinigameManager:Update)
+alloc(newmem,128,minigame)
+
+registersymbol(minigame minigame_Orig mibas)
+label(return minigame_Orig mibas)
+
+newmem:
+  mov [mibas],rcx
+minigame_Orig:
+  readmem(minigame,11)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,00000170
+  jmp return
+
+mibas:
+  dq 0
+
+minigame:
+  jmp newmem
+  nop 6
+return:
+
+[DISABLE]
+
+minigame:
+  readmem(minigame_Orig,11)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: MinigameManager:Update
+
+SpawnPoint:Update+24: F2 0F 11 45 F0                 - movsd [rbp-10],xmm0
+SpawnPoint:Update+29: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+SpawnPoint:Update+2e: 49 BB 20 E2 97 9B 74 01 00 00  - mov r11,UnityEngine.Time:get_deltaTime
+SpawnPoint:Update+38: 41 FF D3                       - call r11
+SpawnPoint:Update+3b: F3 0F 5A C8                    - cvtss2sd xmm1,xmm0
+SpawnPoint:Update+3f: F2 0F 10 45 F0                 - movsd xmm0,[rbp-10]
+SpawnPoint:Update+44: F2 0F 5C C1                    - subsd xmm0,xmm1
+SpawnPoint:Update+48: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+SpawnPoint:Update+4c: F3 0F 11 6E 1C                 - movss [rsi+1C],xmm5
+SpawnPoint:Update+51: F3 0F 10 46 1C                 - movss xmm0,[rsi+1C]
+SpawnPoint:Update+56: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+SpawnPoint:Update+5a: 66 0F 57 C9                    - xorpd xmm1,xmm1
+SpawnPoint:Update+5e: 66 0F 2F C8                    - comisd xmm1,xmm0
+SpawnPoint:Update+62: 0F 82 04 00 00 00              - jb SpawnPoint:Update+6c
+SpawnPoint:Update+68: C6 46 18 00                    - mov byte ptr [rsi+18],00
+SpawnPoint:Update+6c: 48 8B 75 F8                    - mov rsi,[rbp-08]
+SpawnPoint:Update+70: 48 8D 65 00                    - lea rsp,[rbp+00]
+SpawnPoint:Update+74: 5D                             - pop rbp
+SpawnPoint:Update+75: C3                             - ret 
+17376F669E6: 00 00                          - add [rax],al
+17376F669E8: 01 04 02                       - add [rdx+rax],eax
+17376F669EB: 05 04 03 01 50                 - add eax,50010304
+17376F669F0: 00 00                          - add [rax],al
+17376F669F2: 00 00                          - add [rax],al
+17376F669F4: 00 00                          - add [rax],al
+17376F669F6: 00 00                          - add [rax],al
+17376F669F8: 00 00                          - add [rax],al
+17376F669FA: 00 00                          - add [rax],al
+17376F669FC: 00 00                          - add [rax],al
+17376F669FE: 00 00                          - add [rax],al
+// ---------- INJECTING HERE ----------
+MinigameManager:Update: 55                             - push rbp
+// ---------- DONE INJECTING  ----------
+MinigameManager:Update+1: 48 8B EC                       - mov rbp,rsp
+MinigameManager:Update+4: 48 81 EC 70 01 00 00           - sub rsp,00000170
+MinigameManager:Update+b: 48 89 5D C8                    - mov [rbp-38],rbx
+MinigameManager:Update+f: 48 89 75 D0                    - mov [rbp-30],rsi
+MinigameManager:Update+13: 48 89 7D D8                    - mov [rbp-28],rdi
+MinigameManager:Update+17: 4C 89 65 E0                    - mov [rbp-20],r12
+MinigameManager:Update+1b: 4C 89 6D E8                    - mov [rbp-18],r13
+MinigameManager:Update+1f: 4C 89 75 F0                    - mov [rbp-10],r14
+MinigameManager:Update+23: 4C 89 7D F8                    - mov [rbp-08],r15
+MinigameManager:Update+27: 48 8B F1                       - mov rsi,rcx
+MinigameManager:Update+2a: F3 0F 10 86 24 01 00 00        - movss xmm0,[rsi+00000124]
+MinigameManager:Update+32: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+MinigameManager:Update+36: F2 0F 11 85 C8 FE FF FF        - movsd [rbp-00000138],xmm0
+MinigameManager:Update+3e: 49 BB 20 E2 97 9B 74 01 00 00  - mov r11,UnityEngine.Time:get_deltaTime
+MinigameManager:Update+48: 41 FF D3                       - call r11
+MinigameManager:Update+4b: F3 0F 5A C8                    - cvtss2sd xmm1,xmm0
+MinigameManager:Update+4f: F2 0F 10 85 C8 FE FF FF        - movsd xmm0,[rbp-00000138]
+MinigameManager:Update+57: F2 0F 5C C1                    - subsd xmm0,xmm1
+MinigameManager:Update+5b: F2 0F 5A E8                    - cvtsd2ss xmm5,xmm0
+MinigameManager:Update+5f: F3 0F 11 AE 24 01 00 00        - movss [rsi+00000124],xmm5
+MinigameManager:Update+67: F3 0F 10 86 24 01 00 00        - movss xmm0,[rsi+00000124]
+MinigameManager:Update+6f: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+MinigameManager:Update+73: 66 0F 57 C9                    - xorpd xmm1,xmm1
+MinigameManager:Update+77: 66 0F 2F C8                    - comisd xmm1,xmm0
+MinigameManager:Update+7b: 0F 86 34 00 00 00              - jbe MinigameManager:Update+b5
+MinigameManager:Update+81: 48 63 86 1C 01 00 00           - movsxd  rax,dword ptr [rsi+0000011C]
+MinigameManager:Update+88: 83 F8 3C                       - cmp eax,3C
+MinigameManager:Update+8b: 7D 28                          - jnl MinigameManager:Update+b5
+MinigameManager:Update+8d: 48 63 86 1C 01 00 00           - movsxd  rax,dword ptr [rsi+0000011C]
+MinigameManager:Update+94: 83 C0 05                       - add eax,05
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>81</ID>
+                  <Description>"gun1"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>82</ID>
+                      <Description>"damage"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>1E2E15F4930+98</Address>
+                      <Offsets>
+                        <Offset>88</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>83</ID>
+                      <Description>"range"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>1E2E15F4930+98</Address>
+                      <Offsets>
+                        <Offset>8C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>84</ID>
+                      <Description>"bullets"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>1E2E15F4930+98</Address>
+                      <Offsets>
+                        <Offset>90</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>85</ID>
+                      <Description>"waitTime"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>1E2E15F4930+98</Address>
+                      <Offsets>
+                        <Offset>94</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>86</ID>
+                  <Description>"gun2"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>87</ID>
+                      <Description>"damage"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>1E2E15F4930+A0</Address>
+                      <Offsets>
+                        <Offset>88</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>88</ID>
+                      <Description>"range"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>1E2E15F4930+A0</Address>
+                      <Offsets>
+                        <Offset>8C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>89</ID>
+                      <Description>"bullets"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>1E2E15F4930+A0</Address>
+                      <Offsets>
+                        <Offset>90</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>90</ID>
+                      <Description>"waitTime"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>1E2E15F4930+A0</Address>
+                      <Offsets>
+                        <Offset>94</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>91</ID>
+                  <Description>"health"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>1E2E15F4930+110</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>92</ID>
+                  <Description>"healthInGame"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>1E2E15F4930+114</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>93</ID>
+                  <Description>"dead"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>1E2E15F4930+118</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>94</ID>
+                  <Description>"minimumZombiesAlive"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>1E2E15F4930+11C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>95</ID>
+                  <Description>"zombiesAlive"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>1E2E15F4930+120</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>96</ID>
+                  <Description>"zombieIncreaseTimer"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>1E2E15F4930+124</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>97</ID>
+                  <Description>"score"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>1E2E15F4930+128</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>98</ID>
+                  <Description>"inMenu"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>1E2E15F4930+144</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99</ID>
+                  <Description>"gamePlaying"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>1E2E15F4930+145</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>100</ID>
+                  <Description>"achDone"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>1E2E15F4930+146</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>101</ID>
+              <Description>"Get RV"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{Game  : Fears to Fathom - Ironbark Lookout.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(rvc,RVController:Update)
+alloc(newmem,128,rvc)
+
+registersymbol(rvc rvc_Orig rvbas)
+label(return rvc_Orig rvbas)
+
+newmem:
+  mov [rvbas],rcx
+rvc_Orig:
+  readmem(rvc,11)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,00000140
+  jmp return
+
+rvbas:
+  dq 0
+
+rvc:
+  jmp newmem
+  nop 6
+return:
+
+[DISABLE]
+
+rvc:
+  readmem(rvc_Orig,11)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: RVController:Update
+
+DrivingCam:PerformMouseMove+757: 83 38 00                       - cmp dword ptr [rax],00
+DrivingCam:PerformMouseMove+75a: 48 8D 6D 00                    - lea rbp,[rbp+00]
+DrivingCam:PerformMouseMove+75e: 49 BB 70 BC 96 9B 74 01 00 00  - mov r11,UnityEngine.Transform:set_localRotation
+DrivingCam:PerformMouseMove+768: 41 FF D3                       - call r11
+DrivingCam:PerformMouseMove+76b: 48 8B 75 F8                    - mov rsi,[rbp-08]
+DrivingCam:PerformMouseMove+76f: 48 8D 65 00                    - lea rsp,[rbp+00]
+DrivingCam:PerformMouseMove+773: 5D                             - pop rbp
+DrivingCam:PerformMouseMove+774: C3                             - ret 
+DrivingCam:PerformMouseMove+775: 02 C2                          - add al,dl
+DrivingCam:PerformMouseMove+777: 02 C3                          - add al,bl
+DrivingCam:PerformMouseMove+779: 02 C5                          - add al,ch
+DrivingCam:PerformMouseMove+77b: 03 C6                          - add eax,esi
+DrivingCam:PerformMouseMove+77d: 05 C5 06 35 FA                 - add eax,FA3506C5
+DrivingCam:PerformMouseMove+782: 8E 3C C8                       - mov is,[rax+rcx*8]
+DrivingCam:PerformMouseMove+785: 00 CA                          - add dl,cl
+DrivingCam:PerformMouseMove+787: 00 DE                          - add dh,bl
+DrivingCam:PerformMouseMove+789: 05 ED 00 F1 00                 - add eax,00F100ED
+DrivingCam:PerformMouseMove+78e: F3 01 35 FA 8E 3C 00           - repe add [1740575D4CF],esi
+174053945D5: 00 00                          - add [rax],al
+174053945D7: 00 01                          - add [rcx],al
+174053945D9: 04 02                          - add al,02
+174053945DB: 05 04 03 01 50                 - add eax,50010304
+174053945E0: 00 00                          - add [rax],al
+174053945E2: 00 00                          - add [rax],al
+174053945E4: 00 00                          - add [rax],al
+174053945E6: 00 00                          - add [rax],al
+174053945E8: 00 00                          - add [rax],al
+174053945EA: 00 00                          - add [rax],al
+174053945EC: 00 00                          - add [rax],al
+174053945EE: 00 00                          - add [rax],al
+// ---------- INJECTING HERE ----------
+RVController:Update: 55                             - push rbp
+// ---------- DONE INJECTING  ----------
+RVController:Update+1: 48 8B EC                       - mov rbp,rsp
+RVController:Update+4: 48 81 EC 40 01 00 00           - sub rsp,00000140
+RVController:Update+b: 48 89 75 F0                    - mov [rbp-10],rsi
+RVController:Update+f: 48 89 7D F8                    - mov [rbp-08],rdi
+RVController:Update+13: 48 8B F1                       - mov rsi,rcx
+RVController:Update+16: C7 85 08 FF FF FF 00 00 00 00  - mov [rbp-000000F8],00000000
+RVController:Update+20: C7 85 10 FF FF FF 00 00 00 00  - mov [rbp-000000F0],00000000
+RVController:Update+2a: C7 85 14 FF FF FF 00 00 00 00  - mov [rbp-000000EC],00000000
+RVController:Update+34: C7 85 18 FF FF FF 00 00 00 00  - mov [rbp-000000E8],00000000
+RVController:Update+3e: C7 85 1C FF FF FF 00 00 00 00  - mov [rbp-000000E4],00000000
+RVController:Update+48: C7 85 20 FF FF FF 00 00 00 00  - mov [rbp-000000E0],00000000
+RVController:Update+52: C7 85 24 FF FF FF 00 00 00 00  - mov [rbp-000000DC],00000000
+RVController:Update+5c: C7 85 28 FF FF FF 00 00 00 00  - mov [rbp-000000D8],00000000
+RVController:Update+66: C7 85 2C FF FF FF 00 00 00 00  - mov [rbp-000000D4],00000000
+RVController:Update+70: C7 85 30 FF FF FF 00 00 00 00  - mov [rbp-000000D0],00000000
+RVController:Update+7a: C7 85 34 FF FF FF 00 00 00 00  - mov [rbp-000000CC],00000000
+RVController:Update+84: C7 85 38 FF FF FF 00 00 00 00  - mov [rbp-000000C8],00000000
+RVController:Update+8e: C7 85 40 FF FF FF 00 00 00 00  - mov [rbp-000000C0],00000000
+RVController:Update+98: C7 85 44 FF FF FF 00 00 00 00  - mov [rbp-000000BC],00000000
+RVController:Update+a2: C7 85 48 FF FF FF 00 00 00 00  - mov [rbp-000000B8],00000000
+RVController:Update+ac: C7 85 4C FF FF FF 00 00 00 00  - mov [rbp-000000B4],00000000
+RVController:Update+b6: C7 85 50 FF FF FF 00 00 00 00  - mov [rbp-000000B0],00000000
+RVController:Update+c0: C7 85 54 FF FF FF 00 00 00 00  - mov [rbp-000000AC],00000000
+RVController:Update+ca: 48 8B 86 D0 00 00 00           - mov rax,[rsi+000000D0]
+RVController:Update+d1: 48 8B C8                       - mov rcx,rax
+RVController:Update+d4: 83 38 00                       - cmp dword ptr [rax],00
+RVController:Update+d7: 48 8D AD 00 00 00 00           - lea rbp,[rbp+00000000]
+RVController:Update+de: 49 BB 20 36 39 05 74 01 00 00  - mov r11,UnityEngine.AudioSource:get_isPlaying
+RVController:Update+e8: 41 FF D3                       - call r11
+RVController:Update+eb: 48 0F B6 C8                    - movzx rcx,al
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>102</ID>
+                  <Description>"No description"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>rvbas</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>103</ID>
+                  <Description>"initialFOV"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+170</Address>
+                  <Offsets>
+                    <Offset>2C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>104</ID>
+                  <Description>"zoomFOV"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+170</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>105</ID>
+                  <Description>"maxRPM"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1B0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>106</ID>
+                  <Description>"currentVelocity"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1B4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>107</ID>
+                  <Description>"maxVelocity"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1B8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>108</ID>
+                  <Description>"maxReverseVelocity"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1BC</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>109</ID>
+                  <Description>"accelerateValue"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1C0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>110</ID>
+                  <Description>"decelerateValue"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1C4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>111</ID>
+                  <Description>"speed"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1C8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>112</ID>
+                  <Description>"handelingFactor"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1CC</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>113</ID>
+                  <Description>"isDoorOpen"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+1DC</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>114</ID>
+                  <Description>"isDoorMoving"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+1DD</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>115</ID>
+                  <Description>"acceleration"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1E0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>116</ID>
+                  <Description>"breakingForce"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1E4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>117</ID>
+                  <Description>"maxTurnAngle"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1E8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>118</ID>
+                  <Description>"rpmMinAngle"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1F8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>119</ID>
+                  <Description>"rpmMaxAngle"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+1FC</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>120</ID>
+                  <Description>"speedMinAngle"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+200</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>121</ID>
+                  <Description>"speedMaxAngle"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+204</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>122</ID>
+                  <Description>"fuelMinAngle"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+208</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>123</ID>
+                  <Description>"fuelMaxAngle"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+20C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>124</ID>
+                  <Description>"playerInsideRV"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+210</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>125</ID>
+                  <Description>"justPressedAcc"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+211</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>126</ID>
+                  <Description>"justSatDown"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+212</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>127</ID>
+                  <Description>"isPlayingRev"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+213</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>128</ID>
+                  <Description>"isCloseToDestination"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+218</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>129</ID>
+                  <Description>"rvSlowDown"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+219</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>130</ID>
+                  <Description>"bagOutsideRV"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+21A</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>131</ID>
+                  <Description>"lerpSpeed"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+21C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>132</ID>
+                  <Description>"rvState"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[rvbas]+220</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>133</ID>
+                  <Description>"avgRPM"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[rvbas]+224</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>134</ID>
+                  <Description>"isBathroomDoorOpen"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+228</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>135</ID>
+                  <Description>"ignoreControls"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+235</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>136</ID>
+                  <Description>"isDoorClosedForTrailEnd"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>[rvbas]+238</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>137</ID>
+              <Description>"&lt;CanMove&gt;k__BackingField"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas12]+48</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>138</ID>
+              <Description>"canSprint"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas12]+49</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>139</ID>
+              <Description>"canJump"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas12]+4A</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>140</ID>
+              <Description>"canCrouch"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas12]+4B</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>141</ID>
+              <Description>"canUseHeadBop"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas12]+4C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>142</ID>
+              <Description>"walkSpeed"</Description>
+              <Options moRecursiveSetValue="1" moAlwaysHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas12]+60</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>143</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>30</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>144</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>38</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>145</ID>
+                  <Description>"iWalkspeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+E8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>146</ID>
+                  <Description>"walkSpeed"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>28</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>147</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>20</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>148</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>40</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>149</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>48</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>150</ID>
+              <Description>"sprintSpeed"</Description>
+              <Options moRecursiveSetValue="1" moAlwaysHideChildren="1" moActivateChildrenAsWell="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas12]+64</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>151</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>30</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>152</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>38</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>153</ID>
+                  <Description>"iSprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+EC</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>154</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>28</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>155</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>20</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>156</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>40</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>157</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas12]+30</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>48</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>158</ID>
+              <Description>"crouchSpeed"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas12]+68</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>159</ID>
+              <Description>"gravity"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas12]+94</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>160</ID>
+              <Description>"crouchHeight"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas12]+98</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>161</ID>
+              <Description>"standingHeight"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas12]+9C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>162</ID>
+              <Description>"startFov"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas12]+120</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>163</ID>
+          <Description>"Get Player Fears 5"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : Fears To Fathom - Norwood Hitchhike.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+if getOpenedProcessID()~=getProcessIDFromProcessName('Fears to Fathom - Woodbury Getaway.exe') then error('Wrong game') end
+{$asm}
+define(player,FirstPersonController:Update)
+alloc(newmem,128,player)
+
+registersymbol(player player_Orig bas13)
+label(return player_Orig bas13)
+
+newmem:
+  mov [bas13],rcx
+player_Orig:
+  readmem(player,8)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,30
+  jmp return
+
+bas13:
+  dq 0
+
+player:
+  jmp newmem
+  nop 3
+return:
+
+[DISABLE]
+
+player:
+  readmem(player_Orig,8)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: FirstPersonController:Update
+
+2F56F086CCF: 00 41 FF                       - add [rcx-01],al
+2F56F086CD2: D3 08                          - ror [rax],cl
+2F56F086CD4: 90                             - nop
+2F56F086CD5: 89 0F                          - mov [rdi],ecx
+2F56F086CD7: F2 F7 02 00 00 00 00           - repne test [rdx],00000000
+2F56F086CDE: 00 00                          - add [rax],al
+2F56F086CE0: 00 00                          - add [rax],al
+2F56F086CE2: 00 00                          - add [rax],al
+2F56F086CE4: 00 00                          - add [rax],al
+2F56F086CE6: 00 00                          - add [rax],al
+2F56F086CE8: 00 00                          - add [rax],al
+2F56F086CEA: 00 00                          - add [rax],al
+2F56F086CEC: 00 00                          - add [rax],al
+2F56F086CEE: 00 00                          - add [rax],al
+2F56F086CF0: 00 00                          - add [rax],al
+2F56F086CF2: 49 BB 20 02 6A 9B F3 02 00 00  - mov r11,000002F39B6A0220
+2F56F086CFC: 41 FF D3                       - call r11
+2F56F086CFF: 08 10                          - or [rax],dl
+2F56F086D01: 03 57 70                       - add edx,[rdi+70]
+2F56F086D04: F5                             - cmc
+2F56F086D05: 02 00                          - add al,[rax]
+2F56F086D07: 00 00                          - add [rax],al
+2F56F086D09: 00 00                          - add [rax],al
+2F56F086D0B: 00 00                          - add [rax],al
+2F56F086D0D: 00 00                          - add [rax],al
+2F56F086D0F: 00                             - db 00
+FirstPersonController:Update: 55                             - push rbp
+FirstPersonController:Update+1: 48 8B EC                       - mov rbp,rsp
+FirstPersonController:Update+4: 48 83 EC 30                    - sub rsp,30
+FirstPersonController:Update+8: 48 89 75 F8                    - mov [rbp-08],rsi
+// ---------- INJECTING HERE ----------
+FirstPersonController:Update+c: 48 8B F1                       - mov rsi,rcx
+// ---------- DONE INJECTING  ----------
+FirstPersonController:Update+f: 0F B6 46 58                    - movzx eax,byte ptr [rsi+58]
+FirstPersonController:Update+13: 85 C0                          - test eax,eax
+FirstPersonController:Update+15: 0F 84 F8 00 00 00              - je FirstPersonController:Update+113
+FirstPersonController:Update+1b: 48 8B 46 30                    - mov rax,[rsi+30]
+FirstPersonController:Update+1f: 0F B6 40 70                    - movzx eax,byte ptr [rax+70]
+FirstPersonController:Update+23: 85 C0                          - test eax,eax
+FirstPersonController:Update+25: 0F 85 E8 00 00 00              - jne FirstPersonController:Update+113
+FirstPersonController:Update+2b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+2e: 49 BB D0 6F 08 6F F5 02 00 00  - mov r11,FirstPersonController:HandleMovementInput
+FirstPersonController:Update+38: 41 FF D3                       - call r11
+FirstPersonController:Update+3b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+3e: 49 BB 30 7B 08 6F F5 02 00 00  - mov r11,FirstPersonController:HandleMouseLook
+FirstPersonController:Update+48: 41 FF D3                       - call r11
+FirstPersonController:Update+4b: 0F B6 46 5A                    - movzx eax,byte ptr [rsi+5A]
+FirstPersonController:Update+4f: 85 C0                          - test eax,eax
+FirstPersonController:Update+51: 74 10                          - je FirstPersonController:Update+63
+FirstPersonController:Update+53: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+56: 49 BB 53 6F 08 6F F5 02 00 00  - mov r11,000002F56F086F53
+FirstPersonController:Update+60: 41 FF D3                       - call r11
+FirstPersonController:Update+63: 0F B6 46 5B                    - movzx eax,byte ptr [rsi+5B]
+FirstPersonController:Update+67: 85 C0                          - test eax,eax
+FirstPersonController:Update+69: 74 10                          - je FirstPersonController:Update+7b
+FirstPersonController:Update+6b: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+6e: 49 BB 50 7E 08 6F F5 02 00 00  - mov r11,000002F56F087E50
+FirstPersonController:Update+78: 41 FF D3                       - call r11
+FirstPersonController:Update+7b: 0F B6 46 5C                    - movzx eax,byte ptr [rsi+5C]
+FirstPersonController:Update+7f: 85 C0                          - test eax,eax
+FirstPersonController:Update+81: 74 10                          - je FirstPersonController:Update+93
+FirstPersonController:Update+83: 48 8B CE                       - mov rcx,rsi
+FirstPersonController:Update+86: 49 BB C0 7F 08 6F F5 02 00 00  - mov r11,000002F56F087FC0
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>164</ID>
+              <Description>"HP won't Decrease Type Master"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{Game  : Fears to Fathom - Woodbury Getaway.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(infhp,TypingGameKit.AlienTyping.Player:TakeDamage)
+alloc(infhp_Orig,8)
+
+registersymbol(infhp infhp_Orig)
+
+infhp_Orig:
+  readmem(infhp,1)
+
+infhp:
+  db C3
+
+[DISABLE]
+
+infhp:
+  readmem(infhp_Orig,1)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TypingGameKit.AlienTyping.Player:TakeDamage
+
+TypingGameKit.AlienTyping.Enemy:RegisterAttackHit+3c: C3                             - ret 
+229F7F3D10D: 00 00                          - add [rax],al
+229F7F3D10F: 00 01                          - add [rcx],al
+229F7F3D111: 04 02                          - add al,02
+229F7F3D113: 05 04 03 01 50                 - add eax,50010304
+229F7F3D118: 00 00                          - add [rax],al
+229F7F3D11A: 00 00                          - add [rax],al
+229F7F3D11C: 00 00                          - add [rax],al
+229F7F3D11E: 00 00                          - add [rax],al
+229F7F3D120: 00 00                          - add [rax],al
+229F7F3D122: 00 00                          - add [rax],al
+229F7F3D124: 00 00                          - add [rax],al
+229F7F3D126: 00 00                          - add [rax],al
+229F7F3D128: 00 00                          - add [rax],al
+229F7F3D12A: 00 49 BB                       - add [rcx-45],cl
+229F7F3D12D: 20 02                          - and [rdx],al
+229F7F3D12F: D2 77 28                       - shl byte ptr [rdi+28],cl
+229F7F3D132: 02 00                          - add al,[rax]
+229F7F3D134: 00 41 FF                       - add [rcx-01],al
+229F7F3D137: D3 08                          - ror [rax],cl
+229F7F3D139: E8 43 C6 ED 29                 - call 22A21E19781
+229F7F3D13E: 02 00                          - add al,[rax]
+229F7F3D140: 00 00                          - add [rax],al
+229F7F3D142: 00 00                          - add [rax],al
+229F7F3D144: 00 00                          - add [rax],al
+229F7F3D146: 00 00                          - add [rax],al
+229F7F3D148: 00 00                          - add [rax],al
+229F7F3D14A: 00 00                          - add [rax],al
+229F7F3D14C: 00 00                          - add [rax],al
+229F7F3D14E: 00 00                          - add [rax],al
+// ---------- INJECTING HERE ----------
+TypingGameKit.AlienTyping.Player:TakeDamage: 55                             - push rbp
+// ---------- DONE INJECTING  ----------
+TypingGameKit.AlienTyping.Player:TakeDamage+1: 48 8B EC                       - mov rbp,rsp
+TypingGameKit.AlienTyping.Player:TakeDamage+4: 48 83 EC 40                    - sub rsp,40
+TypingGameKit.AlienTyping.Player:TakeDamage+8: 48 89 7D F8                    - mov [rbp-08],rdi
+TypingGameKit.AlienTyping.Player:TakeDamage+c: 48 8B F9                       - mov rdi,rcx
+TypingGameKit.AlienTyping.Player:TakeDamage+f: 48 89 55 F0                    - mov [rbp-10],rdx
+TypingGameKit.AlienTyping.Player:TakeDamage+13: 48 63 47 44                    - movsxd  rax,dword ptr [rdi+44]
+TypingGameKit.AlienTyping.Player:TakeDamage+17: FF C0                          - inc eax
+TypingGameKit.AlienTyping.Player:TakeDamage+19: 89 47 44                       - mov [rdi+44],eax
+TypingGameKit.AlienTyping.Player:TakeDamage+1c: 48 63 47 40                    - movsxd  rax,dword ptr [rdi+40]
+TypingGameKit.AlienTyping.Player:TakeDamage+20: 2B 45 F0                       - sub eax,[rbp-10]
+TypingGameKit.AlienTyping.Player:TakeDamage+23: 89 47 40                       - mov [rdi+40],eax
+TypingGameKit.AlienTyping.Player:TakeDamage+26: 48 8B 47 38                    - mov rax,[rdi+38]
+TypingGameKit.AlienTyping.Player:TakeDamage+2a: 48 63 4F 40                    - movsxd  rcx,dword ptr [rdi+40]
+TypingGameKit.AlienTyping.Player:TakeDamage+2e: F3 0F 2A C1                    - cvtsi2ss xmm0,ecx
+TypingGameKit.AlienTyping.Player:TakeDamage+32: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+TypingGameKit.AlienTyping.Player:TakeDamage+36: 48 8B C8                       - mov rcx,rax
+TypingGameKit.AlienTyping.Player:TakeDamage+39: F2 0F 10 C8                    - movsd xmm1,xmm0
+TypingGameKit.AlienTyping.Player:TakeDamage+3d: F2 0F 5A C9                    - cvtsd2ss xmm1,xmm1
+TypingGameKit.AlienTyping.Player:TakeDamage+41: 48 89 45 E8                    - mov [rbp-18],rax
+TypingGameKit.AlienTyping.Player:TakeDamage+45: FF 50 18                       - call qword ptr [rax+18]
+TypingGameKit.AlienTyping.Player:TakeDamage+48: 48 8B 45 E8                    - mov rax,[rbp-18]
+TypingGameKit.AlienTyping.Player:TakeDamage+4c: 48 8B 47 18                    - mov rax,[rdi+18]
+TypingGameKit.AlienTyping.Player:TakeDamage+50: 48 8B C8                       - mov rcx,rax
+TypingGameKit.AlienTyping.Player:TakeDamage+53: 48 BA C0 F6 57 CD 2A 02 00 00  - mov rdx,0000022ACD57F6C0
+TypingGameKit.AlienTyping.Player:TakeDamage+5d: 83 38 00                       - cmp dword ptr [rax],00
+TypingGameKit.AlienTyping.Player:TakeDamage+60: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+TypingGameKit.AlienTyping.Player:TakeDamage+65: 90                             - nop 
+TypingGameKit.AlienTyping.Player:TakeDamage+66: 49 BB 30 5C F3 F7 29 02 00 00  - mov r11,UnityEngine.Animator:SetTrigger
+TypingGameKit.AlienTyping.Player:TakeDamage+70: 41 FF D3                       - call r11
+TypingGameKit.AlienTyping.Player:TakeDamage+73: 48 8B 47 28                    - mov rax,[rdi+28]
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>165</ID>
+              <Description>"Get Fishing"</Description>
+              <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{Game  : Fears to Fathom - Woodbury Getaway.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(Fisher,FishingRod:Update)
+alloc(newmem,128,Fisher)
+
+registersymbol(Fisher Fisher_Orig Fibas)
+label(return Fisher_Orig Fibas)
+
+newmem:
+  mov [Fibas],rcx
+Fisher_Orig:
+  readmem(Fisher,11)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,00000190
+  jmp return
+
+Fibas:
+  dq 0
+
+Fisher:
+  jmp newmem
+  nop 6
+return:
+
+[DISABLE]
+
+Fisher:
+  readmem(Fisher_Orig,11)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: FishingRod:Update
+
+25CADB9750A: 00 00                          - add [rax],al
+25CADB9750C: 00 00                          - add [rax],al
+25CADB9750E: 00 00                          - add [rax],al
+UnityEngine.EventSystems.EventTrigger:OnPointerExit: 55                             - push rbp
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+1: 48 8B EC                       - mov rbp,rsp
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+4: 48 83 EC 30                    - sub rsp,30
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+8: 48 89 4D F8                    - mov [rbp-08],rcx
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+c: 48 89 55 F0                    - mov [rbp-10],rdx
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+10: BA 01 00 00 00                 - mov edx,00000001
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+15: 4C 8B 45 F0                    - mov r8,[rbp-10]
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+19: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+1e: 49 BB 20 69 B9 AD 5C 02 00 00  - mov r11,UnityEngine.EventSystems.EventTrigger:Execute
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+28: 41 FF D3                       - call r11
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+2b: 48 8D 65 00                    - lea rsp,[rbp+00]
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+2f: 5D                             - pop rbp
+UnityEngine.EventSystems.EventTrigger:OnPointerExit+30: C3                             - ret
+25CADB97541: 00 00                          - add [rax],al
+25CADB97543: 00 00                          - add [rax],al
+25CADB97545: 00 00                          - add [rax],al
+25CADB97547: 00 01                          - add [rcx],al
+25CADB97549: 04 02                          - add al,02
+25CADB9754B: 05 04 03 01 50                 - add eax,50010304
+25CADB97550: 00 00                          - add [rax],al
+25CADB97552: 00 00                          - add [rax],al
+25CADB97554: 00 00                          - add [rax],al
+25CADB97556: 00 00                          - add [rax],al
+25CADB97558: 00 00                          - add [rax],al
+25CADB9755A: 00 00                          - add [rax],al
+25CADB9755C: 00 00                          - add [rax],al
+25CADB9755E: 00 00                          - add [rax],al
+// ---------- INJECTING HERE ----------
+FishingRod:Update: 55                             - push rbp
+// ---------- DONE INJECTING  ----------
+FishingRod:Update+1: 48 8B EC                       - mov rbp,rsp
+FishingRod:Update+4: 48 81 EC 90 01 00 00           - sub rsp,00000190
+FishingRod:Update+b: 48 89 75 E8                    - mov [rbp-18],rsi
+FishingRod:Update+f: 48 89 7D F0                    - mov [rbp-10],rdi
+FishingRod:Update+13: 4C 89 7D F8                    - mov [rbp-08],r15
+FishingRod:Update+17: 48 8B F1                       - mov rsi,rcx
+FishingRod:Update+1a: 33 C9                          - xor ecx,ecx
+FishingRod:Update+1c: 66 90                          - nop 2
+FishingRod:Update+1e: 49 BB 99 3D D4 99 5C 02 00 00  - mov r11,0000025C99D43D99
+FishingRod:Update+28: 41 FF D3                       - call r11
+FishingRod:Update+2b: 85 C0                          - test eax,eax
+FishingRod:Update+2d: 0F 84 67 09 00 00              - je FishingRod:Update+99a
+FishingRod:Update+33: 0F B6 86 6C 02 00 00           - movzx eax,byte ptr [rsi+0000026C]
+FishingRod:Update+3a: 85 C0                          - test eax,eax
+FishingRod:Update+3c: 0F 84 58 09 00 00              - je FishingRod:Update+99a
+FishingRod:Update+42: 0F B6 86 88 02 00 00           - movzx eax,byte ptr [rsi+00000288]
+FishingRod:Update+49: 85 C0                          - test eax,eax
+FishingRod:Update+4b: 0F 85 49 09 00 00              - jne FishingRod:Update+99a
+FishingRod:Update+51: 0F B6 86 94 02 00 00           - movzx eax,byte ptr [rsi+00000294]
+FishingRod:Update+58: 85 C0                          - test eax,eax
+FishingRod:Update+5a: 0F 85 3A 09 00 00              - jne FishingRod:Update+99a
+FishingRod:Update+60: 48 8B 46 28                    - mov rax,[rsi+28]
+FishingRod:Update+64: 48 8B 40 18                    - mov rax,[rax+18]
+FishingRod:Update+68: 48 8B C8                       - mov rcx,rax
+FishingRod:Update+6b: 83 38 00                       - cmp dword ptr [rax],00
+FishingRod:Update+6e: 49 BB 13 A7 9E EE 5B 02 00 00  - mov r11,0000025BEE9EA713
+FishingRod:Update+78: 41 FF D3                       - call r11
+FishingRod:Update+7b: 85 C0                          - test eax,eax
+FishingRod:Update+7d: 0F 85 17 09 00 00              - jne FishingRod:Update+99a
+FishingRod:Update+83: 48 8B 46 18                    - mov rax,[rsi+18]
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>166</ID>
+                  <Description>"nextCatch"</Description>
+                  <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:Yellow Perch
+2:Blue Gill
+3:fishname
+4:Common Carp
+5:Chub
+6:Goldfish
+7:Small Mouth Bass
+8:Large Mouth Bass
+9:Northen Pike
+10:Walleye
+</DropDownList>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[Fibas]+290</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>167</ID>
+                  <Description>"^^^freeze the value to set it"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <Color>0000FF</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>168</ID>
+                  <Description>"Easy Fishing"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{Game  : Fears to Fathom - Woodbury Getaway.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(EzyFish,FishingRod:SetLureOrBait)
+alloc(EzyFish_Orig,16)
+
+registersymbol(EzyFish EzyFish_Orig)
+
+EzyFish_Orig:
+  readmem(EzyFish,16)
+
+EzyFish:
+  jmp FishingRod:FishCaught
+
+[DISABLE]
+
+EzyFish:
+  readmem(EzyFish_Orig,16)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: FishingRod:SetLureOrBait
+
+25CC3F5FFC4: 00 00                          - add [rax],al
+25CC3F5FFC6: 00 00                          - add [rax],al
+25CC3F5FFC8: 00 00                          - add [rax],al
+25CC3F5FFCA: 00 00                          - add [rax],al
+25CC3F5FFCC: 00 00                          - add [rax],al
+25CC3F5FFCE: 00 00                          - add [rax],al
+25CC3F5FFD0: 00 00                          - add [rax],al
+25CC3F5FFD2: 00 00                          - add [rax],al
+25CC3F5FFD4: 00 00                          - add [rax],al
+25CC3F5FFD6: 00 00                          - add [rax],al
+25CC3F5FFD8: 00 00                          - add [rax],al
+25CC3F5FFDA: 00 00                          - add [rax],al
+25CC3F5FFDC: 00 00                          - add [rax],al
+25CC3F5FFDE: 00 00                          - add [rax],al
+25CC3F5FFE0: 00 00                          - add [rax],al
+25CC3F5FFE2: 00 00                          - add [rax],al
+25CC3F5FFE4: 00 00                          - add [rax],al
+25CC3F5FFE6: 00 00                          - add [rax],al
+25CC3F5FFE8: 00 00                          - add [rax],al
+25CC3F5FFEA: 00 00                          - add [rax],al
+25CC3F5FFEC: 00 00                          - add [rax],al
+25CC3F5FFEE: 00 00                          - add [rax],al
+25CC3F5FFF0: 00 00                          - add [rax],al
+25CC3F5FFF2: 00 00                          - add [rax],al
+25CC3F5FFF4: 00 00                          - add [rax],al
+25CC3F5FFF6: 00 00                          - add [rax],al
+25CC3F5FFF8: 00 00                          - add [rax],al
+25CC3F5FFFA: 00 00                          - add [rax],al
+25CC3F5FFFC: 00 00                          - add [rax],al
+25CC3F5FFFE: 00 00                          - add [rax],al
+// ---------- INJECTING HERE ----------
+FishingRod:SetLureOrBait: 55                             - push rbp
+// ---------- DONE INJECTING  ----------
+FishingRod:SetLureOrBait+1: 48 8B EC                       - mov rbp,rsp
+FishingRod:SetLureOrBait+4: 48 83 EC 50                    - sub rsp,50
+FishingRod:SetLureOrBait+8: 48 89 75 D0                    - mov [rbp-30],rsi
+FishingRod:SetLureOrBait+c: 48 89 7D D8                    - mov [rbp-28],rdi
+FishingRod:SetLureOrBait+10: 4C 89 65 E0                    - mov [rbp-20],r12
+FishingRod:SetLureOrBait+14: 4C 89 6D E8                    - mov [rbp-18],r13
+FishingRod:SetLureOrBait+18: 4C 89 75 F0                    - mov [rbp-10],r14
+FishingRod:SetLureOrBait+1c: 4C 89 7D F8                    - mov [rbp-08],r15
+FishingRod:SetLureOrBait+20: 48 8B F9                       - mov rdi,rcx
+FishingRod:SetLureOrBait+23: 48 8B F2                       - mov rsi,rdx
+FishingRod:SetLureOrBait+26: 89 B7 B8 02 00 00              - mov [rdi+000002B8],esi
+FishingRod:SetLureOrBait+2c: 48 63 87 8C 02 00 00           - movsxd  rax,dword ptr [rdi+0000028C]
+FishingRod:SetLureOrBait+33: 3B C6                          - cmp eax,esi
+FishingRod:SetLureOrBait+35: 0F 84 F0 02 00 00              - je FishingRod:SetLureOrBait+32b
+FishingRod:SetLureOrBait+3b: 4C 63 BF 8C 02 00 00           - movsxd  r15,dword ptr [rdi+0000028C]
+FishingRod:SetLureOrBait+42: 49 8B C7                       - mov rax,r15
+FishingRod:SetLureOrBait+45: 41 FF CF                       - dec r15d
+FishingRod:SetLureOrBait+48: 41 83 FF 05                    - cmp r15d,05
+FishingRod:SetLureOrBait+4c: 0F 83 D1 00 00 00              - jae FishingRod:SetLureOrBait+123
+FishingRod:SetLureOrBait+52: 49 8B C7                       - mov rax,r15
+FishingRod:SetLureOrBait+55: 48 C1 E0 03                    - shl rax,03
+FishingRod:SetLureOrBait+59: 8B C8                          - mov ecx,eax
+FishingRod:SetLureOrBait+5b: 48 B8 F0 03 F6 C3 5C 02 00 00  - mov rax,0000025CC3F603F0
+FishingRod:SetLureOrBait+65: 48 03 C1                       - add rax,rcx
+FishingRod:SetLureOrBait+68: 48 8B 00                       - mov rax,[rax]
+FishingRod:SetLureOrBait+6b: FF E0                          - jmp rax
+FishingRod:SetLureOrBait+6d: 48 8B 87 C0 00 00 00           - mov rax,[rdi+000000C0]
+FishingRod:SetLureOrBait+74: 48 8B C8                       - mov rcx,rax
+FishingRod:SetLureOrBait+77: 33 D2                          - xor edx,edx
+FishingRod:SetLureOrBait+79: 83 38 00                       - cmp dword ptr [rax],00
+}
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>169</ID>
+                  <Description>"^^^Change bait and you will catch a fish"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <Color>0000FF</Color>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>170</ID>
+              <Description>"Get Truck"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{Game  : Fears to Fathom - Woodbury Getaway.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(truck,TruckController:Update)
+alloc(newmem,128,truck)
+
+registersymbol(truck truck_Orig Tbas)
+label(return truck_Orig Tbas)
+
+newmem:
+  mov [Tbas],rcx
+truck_Orig:
+  readmem(truck,8)
+  //push rbp
+  //mov rbp,rsp
+  //sub rsp,30
+  jmp return
+
+Tbas:
+  dq 0
+
+truck:
+  jmp newmem
+  nop 3
+return:
+
+[DISABLE]
+
+truck:
+  readmem(truck_Orig,8)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: TruckController:Update
+
+229F7D6A23E: 6D                             - insd 
+229F7D6A23F: CC                             - int 3 
+229F7D6A240: 2A 02                          - sub al,[rdx]
+229F7D6A242: 00 00                          - add [rax],al
+229F7D6A244: 00 00                          - add [rax],al
+229F7D6A246: 00 00                          - add [rax],al
+229F7D6A248: 00 00                          - add [rax],al
+229F7D6A24A: 00 00                          - add [rax],al
+229F7D6A24C: 00 00                          - add [rax],al
+229F7D6A24E: 00 00                          - add [rax],al
+229F7D6A250: 00 00                          - add [rax],al
+229F7D6A252: 00 00                          - add [rax],al
+229F7D6A254: 00 00                          - add [rax],al
+229F7D6A256: 00 00                          - add [rax],al
+229F7D6A258: 00 00                          - add [rax],al
+229F7D6A25A: 49 BB 20 02 D2 77 28 02 00 00  - mov r11,0000022877D20220
+229F7D6A264: 41 FF D3                       - call r11
+229F7D6A267: 08 60 A7                       - or [rax-59],ah
+229F7D6A26A: 93                             - xchg eax,ebx
+229F7D6A26B: ED                             - in eax,dx
+229F7D6A26C: 29 02                          - sub [rdx],eax
+229F7D6A26E: 00 00                          - add [rax],al
+229F7D6A270: 00 00                          - add [rax],al
+229F7D6A272: 00 00                          - add [rax],al
+229F7D6A274: 00 00                          - add [rax],al
+229F7D6A276: 00 00                          - add [rax],al
+229F7D6A278: 00 00                          - add [rax],al
+229F7D6A27A: 00 00                          - add [rax],al
+229F7D6A27C: 00 00                          - add [rax],al
+229F7D6A27E: 00 00                          - add [rax],al
+// ---------- INJECTING HERE ----------
+TruckController:Update: 55                             - push rbp
+// ---------- DONE INJECTING  ----------
+TruckController:Update+1: 48 8B EC                       - mov rbp,rsp
+TruckController:Update+4: 48 83 EC 30                    - sub rsp,30
+TruckController:Update+8: 48 89 75 F8                    - mov [rbp-08],rsi
+TruckController:Update+c: 48 8B F1                       - mov rsi,rcx
+TruckController:Update+f: 48 63 86 EC 01 00 00           - movsxd  rax,dword ptr [rsi+000001EC]
+TruckController:Update+16: 85 C0                          - test eax,eax
+TruckController:Update+18: 0F 85 96 00 00 00              - jne TruckController:Update+b4
+TruckController:Update+1e: 48 B9 90 CF 16 ED 29 02 00 00  - mov rcx,00000229ED16CF90
+TruckController:Update+28: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+TruckController:Update+2d: 90                             - nop 
+TruckController:Update+2e: 49 BB A0 E5 DD B3 2A 02 00 00  - mov r11,UnityEngine.Input:GetAxis
+TruckController:Update+38: 41 FF D3                       - call r11
+TruckController:Update+3b: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+TruckController:Update+3f: 66 0F 57 C9                    - xorpd xmm1,xmm1
+TruckController:Update+43: 66 0F 2F C8                    - comisd xmm1,xmm0
+TruckController:Update+47: 0F 85 3A 00 00 00              - jne TruckController:Update+87
+TruckController:Update+4d: 0F 8A 34 00 00 00              - jp TruckController:Update+87
+TruckController:Update+53: 0F 82 2E 00 00 00              - jb TruckController:Update+87
+TruckController:Update+59: 48 B9 B0 CD 16 ED 29 02 00 00  - mov rcx,00000229ED16CDB0
+TruckController:Update+63: 66 66 90                       - nop 3
+TruckController:Update+66: 49 BB A0 E5 DD B3 2A 02 00 00  - mov r11,UnityEngine.Input:GetAxis
+TruckController:Update+70: 41 FF D3                       - call r11
+TruckController:Update+73: F3 0F 5A C0                    - cvtss2sd xmm0,xmm0
+TruckController:Update+77: 66 0F 57 C9                    - xorpd xmm1,xmm1
+TruckController:Update+7b: 66 0F 2F C8                    - comisd xmm1,xmm0
+TruckController:Update+7f: 7A 06                          - jp TruckController:Update+87
+TruckController:Update+81: 0F 84 2D 00 00 00              - je TruckController:Update+b4
+TruckController:Update+87: 48 8B 46 28                    - mov rax,[rsi+28]
+TruckController:Update+8b: 48 8B C8                       - mov rcx,rax
+TruckController:Update+8e: 83 38 00                       - cmp dword ptr [rax],00
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>171</ID>
+                  <Description>"maxRPM"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+180</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>172</ID>
+                  <Description>"maxVelocity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+188</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>173</ID>
+                  <Description>"maxReverseVelocity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+18C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>174</ID>
+                  <Description>"accelerateValue"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+190</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>175</ID>
+                  <Description>"decelerateValue"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+194</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>176</ID>
+                  <Description>"handelingFactor"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+19C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>177</ID>
+                  <Description>"acceleration"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1A0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>178</ID>
+                  <Description>"breakingForce"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1A4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>179</ID>
+                  <Description>"maxTurnAngle"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1A8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>180</ID>
+                  <Description>"lockedAcceleration"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1AC</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>181</ID>
+                  <Description>"initAcceleration"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1B0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>182</ID>
+                  <Description>"currentAcceleration"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1B4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>183</ID>
+                  <Description>"currentBreakForce"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1B8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>184</ID>
+                  <Description>"currentTurnAngle"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1BC</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>185</ID>
+                  <Description>"rpmMinAngle"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1C0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>186</ID>
+                  <Description>"rpmMaxAngle"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1C4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>187</ID>
+                  <Description>"speedMinAngle"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1C8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>188</ID>
+                  <Description>"speedMaxAngle"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1CC</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>189</ID>
+                  <Description>"fuelMinAngle"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1D0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>190</ID>
+                  <Description>"fuelMaxAngle"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[Tbas]+1D4</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>191</ID>
+              <Description>"Computer\HKEY_CURRENT_USER\Software\Rayll Studios\Fears to Fathom - Woodbury Getaway"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>0000FF</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>192</ID>
+              <Description>"In regedit @^^ edit the key died once to 0 if you die to get the zero deaths achievement"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>0000FF</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>193</ID>
+              <Description>"&lt;CanMove&gt;k__BackingField"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas13]+58</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>194</ID>
+              <Description>"canSprint"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas13]+59</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>195</ID>
+              <Description>"canJump"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas13]+5A</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>196</ID>
+              <Description>"canCrouch"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas13]+5B</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>197</ID>
+              <Description>"canUseHeadBop"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas13]+5C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>198</ID>
+              <Description>"walkSpeed"</Description>
+              <Options moRecursiveSetValue="1" moAlwaysHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas13]+74</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>199</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>20</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>200</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>28</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>201</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>30</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>202</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>38</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>203</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>40</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>204</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>48</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>205</ID>
+                  <Description>"walkSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                    <Offset>50</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>206</ID>
+                  <Description>"iWalkspeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+FC</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>207</ID>
+              <Description>"sprintSpeed"</Description>
+              <Options moRecursiveSetValue="1" moAlwaysHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas13]+78</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>208</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>20</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>209</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>28</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>210</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>30</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>211</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>38</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>212</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>40</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>213</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>48</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>214</ID>
+                  <Description>"sprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+40</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                    <Offset>50</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>215</ID>
+                  <Description>"iSprintSpeed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>[bas13]+100</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>216</ID>
+              <Description>"crouchSpeed"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas13]+7C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>217</ID>
+              <Description>"jumpForce"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas13]+A4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>218</ID>
+              <Description>"gravity"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas13]+A8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>219</ID>
+              <Description>"isPaused"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[bas13]+38</Address>
+              <Offsets>
+                <Offset>78</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>220</ID>
+              <Description>"startFov"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>[bas13]+134</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>221</ID>
+          <Description>"VHS effects"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : Fears To Fathom - Carson House.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+define(vhs,postVHSPro:Update)
+alloc(newmem,128,vhs)
+
+registersymbol(vhs vhs_Orig VVHS)
+label(return vhs_Orig VVHS)
+
+newmem:
+  mov [VVHS],rcx
+vhs_Orig:
+  readmem(vhs,8)
+  //sub rsp,08
+  //add rsp,08
+  jmp return
+
+VVHS:
+  dq 0
+
+vhs:
+  jmp newmem
+  nop 3
+return:
+
+[DISABLE]
+
+vhs:
+  readmem(vhs_Orig,8)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: postVHSPro:Update
+
+GraphicsSettingsMenu:Update+16e: FF                       - db -01
+GraphicsSettingsMenu:Update+16f: FF CD                    - dec ebp
+GraphicsSettingsMenu:Update+171: CC                       - int 3 
+GraphicsSettingsMenu:Update+172: 4C 3E                    - db 3E
+21D3EE79484: 00 00                    - add [rax],al
+21D3EE79486: 00 00                    - add [rax],al
+21D3EE79488: 01 04 02                 - add [rdx+rax],eax
+21D3EE7948B: 05 04 03 01 50           - add eax,50010304
+21D3EE79490: 00 00                    - add [rax],al
+21D3EE79492: 00 00                    - add [rax],al
+21D3EE79494: 00 00                    - add [rax],al
+21D3EE79496: 00 00                    - add [rax],al
+21D3EE79498: 00 00                    - add [rax],al
+21D3EE7949A: 00 00                    - add [rax],al
+21D3EE7949C: 00 00                    - add [rax],al
+21D3EE7949E: 00 00                    - add [rax],al
+CameraFilterPack_Color_BrightContrastSaturation:Update: 48 83 EC 08              - sub rsp,08
+CameraFilterPack_Color_BrightContrastSaturation:Update+4: 48 83 C4 08              - add rsp,08
+CameraFilterPack_Color_BrightContrastSaturation:Update+8: C3                       - ret 
+21D3EE794A9: 00 00                    - add [rax],al
+21D3EE794AB: 00 00                    - add [rax],al
+21D3EE794AD: 00 00                    - add [rax],al
+21D3EE794AF: 00 01                    - add [rcx],al
+21D3EE794B1: 04 01                    - add al,01
+21D3EE794B3: 00 04 02                 - add [rdx+rax],al
+21D3EE794B6: 00 00                    - add [rax],al
+21D3EE794B8: 00 00                    - add [rax],al
+21D3EE794BA: 00 00                    - add [rax],al
+21D3EE794BC: 00 00                    - add [rax],al
+21D3EE794BE: 00 00                    - add [rax],al
+// ---------- INJECTING HERE ----------
+postVHSPro:Update: 48 83 EC 08              - sub rsp,08
+// ---------- DONE INJECTING  ----------
+postVHSPro:Update+4: 48 83 C4 08              - add rsp,08
+postVHSPro:Update+8: C3                       - ret 
+21D3EE794C9: 00 00                    - add [rax],al
+21D3EE794CB: 00 00                    - add [rax],al
+21D3EE794CD: 00 00                    - add [rax],al
+21D3EE794CF: 00 01                    - add [rcx],al
+21D3EE794D1: 04 01                    - add al,01
+21D3EE794D3: 00 04 02                 - add [rdx+rax],al
+21D3EE794D6: 00 00                    - add [rax],al
+21D3EE794D8: 00 00                    - add [rax],al
+21D3EE794DA: 00 00                    - add [rax],al
+21D3EE794DC: 00 00                    - add [rax],al
+21D3EE794DE: 00 00                    - add [rax],al
+UnityEngine.UI.Slider:Update: 55                       - push rbp
+UnityEngine.UI.Slider:Update+1: 48 8B EC                 - mov rbp,rsp
+UnityEngine.UI.Slider:Update+4: 48 83 EC 30              - sub rsp,30
+UnityEngine.UI.Slider:Update+8: 48 89 75 F8              - mov [rbp-08],rsi
+UnityEngine.UI.Slider:Update+c: 48 8B F1                 - mov rsi,rcx
+UnityEngine.UI.Slider:Update+f: 0F B6 86 45 01 00 00     - movzx eax,byte ptr [rsi+00000145]
+UnityEngine.UI.Slider:Update+16: 85 C0                    - test eax,eax
+UnityEngine.UI.Slider:Update+18: 0F 84 3D 00 00 00        - je UnityEngine.UI.Slider:Update+5b
+UnityEngine.UI.Slider:Update+1e: C6 86 45 01 00 00 00     - mov byte ptr [rsi+00000145],00
+UnityEngine.UI.Slider:Update+25: F3 0F 10 86 38 01 00 00  - movss xmm0,[rsi+00000138]
+UnityEngine.UI.Slider:Update+2d: F3 0F 5A C0              - cvtss2sd xmm0,xmm0
+UnityEngine.UI.Slider:Update+31: 48 8B CE                 - mov rcx,rsi
+UnityEngine.UI.Slider:Update+34: 45 33 C0                 - xor r8d,r8d
+UnityEngine.UI.Slider:Update+37: F2 0F 10 C8              - movsd xmm1,xmm0
+UnityEngine.UI.Slider:Update+3b: F2 0F 5A C9              - cvtsd2ss xmm1,xmm1
+UnityEngine.UI.Slider:Update+3f: 48 8B 06                 - mov rax,[rsi]
+UnityEngine.UI.Slider:Update+42: FF 90 C8 01 00 00        - call qword ptr [rax+000001C8]
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>222</ID>
+              <Description>"g_showCRT"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+EC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>223</ID>
+              <Description>"g_showNoise"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+ED</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>224</ID>
+              <Description>"g_showJitter"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+EE</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>225</ID>
+              <Description>"g_showSignal"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+EF</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>226</ID>
+              <Description>"g_showFeedback"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+F0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>227</ID>
+              <Description>"g_showExtra"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+F1</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>228</ID>
+              <Description>"g_showBypass"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+F2</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>229</ID>
+              <Description>"bleedOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+F3</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>230</ID>
+              <Description>"crtMode"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[VVHS]+F4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>231</ID>
+              <Description>"crtLinesMode"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[VVHS]+F8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>232</ID>
+              <Description>"screenLinesNum"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+FC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>233</ID>
+              <Description>"bleedAmount"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+100</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>234</ID>
+              <Description>"bleedDebugOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+104</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>235</ID>
+              <Description>"bleedLength"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[VVHS]+108</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>236</ID>
+              <Description>"bleedCurveEditModeOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+10C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>237</ID>
+              <Description>"bleedCurveIQSyncOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+10D</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>238</ID>
+              <Description>"max_curve_length"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[VVHS]+110</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>239</ID>
+              <Description>"curvesOffest"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>8 Bytes</VariableType>
+              <Address>[VVHS]+114</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>240</ID>
+              <Description>"fisheyeOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+124</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>241</ID>
+              <Description>"fisheyeBend"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+128</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>242</ID>
+              <Description>"fisheyeType"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[VVHS]+12C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>243</ID>
+              <Description>"fisheyeSize"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+130</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>244</ID>
+              <Description>"cutoffX"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+134</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>245</ID>
+              <Description>"cutoffY"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+138</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>246</ID>
+              <Description>"cutoffFadeX"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+13C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>247</ID>
+              <Description>"cutoffFadeY"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+140</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>248</ID>
+              <Description>"vignetteOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+144</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>249</ID>
+              <Description>"vignetteAmount"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+148</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>250</ID>
+              <Description>"vignetteSpeed"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+14C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>251</ID>
+              <Description>"noiseLinesMode"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[VVHS]+150</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>252</ID>
+              <Description>"noiseLinesNum"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+154</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>253</ID>
+              <Description>"noiseQuantizeX"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+158</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>254</ID>
+              <Description>"filmgrainOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+15C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>255</ID>
+              <Description>"filmGrainAmount"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+160</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>256</ID>
+              <Description>"signalNoiseOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+164</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>257</ID>
+              <Description>"signalNoiseAmount"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+168</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>258</ID>
+              <Description>"signalNoisePower"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+16C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>259</ID>
+              <Description>"tapeNoiseOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+170</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>260</ID>
+              <Description>"tapeNoiseTH"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+174</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>261</ID>
+              <Description>"tapeNoiseAmount"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+178</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>262</ID>
+              <Description>"tapeNoiseSpeed"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+17C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>263</ID>
+              <Description>"lineNoiseOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+180</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>264</ID>
+              <Description>"lineNoiseAmount"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+184</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>265</ID>
+              <Description>"lineNoiseSpeed"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+188</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>266</ID>
+              <Description>"scanLinesOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+18C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>267</ID>
+              <Description>"scanLineWidth"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+190</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>268</ID>
+              <Description>"linesFloatOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+194</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>269</ID>
+              <Description>"linesFloatSpeed"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+198</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>270</ID>
+              <Description>"stretchOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+19C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>271</ID>
+              <Description>"twitchHOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+19D</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>272</ID>
+              <Description>"twitchHFreq"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1A0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>273</ID>
+              <Description>"twitchVOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+1A4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>274</ID>
+              <Description>"twitchVFreq"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1A8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>275</ID>
+              <Description>"jitterHOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+1AC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>276</ID>
+              <Description>"jitterHAmount"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1B0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>277</ID>
+              <Description>"jitterVOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+1B4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>278</ID>
+              <Description>"jitterVAmount"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1B8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>279</ID>
+              <Description>"jitterVSpeed"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1BC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>280</ID>
+              <Description>"signalTweakOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+1C0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>281</ID>
+              <Description>"signalAdjustY"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1C4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>282</ID>
+              <Description>"signalAdjustI"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1C8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>283</ID>
+              <Description>"signalAdjustQ"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1CC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>284</ID>
+              <Description>"signalShiftY"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1D0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>285</ID>
+              <Description>"signalShiftI"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1D4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>286</ID>
+              <Description>"signalShiftQ"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1D8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>287</ID>
+              <Description>"gammaCorection"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1DC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>288</ID>
+              <Description>"feedbackOn"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>[VVHS]+1E0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>289</ID>
+              <Description>"feedbackMode"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[VVHS]+1E4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>290</ID>
+              <Description>"feedbackThresh"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1E8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>291</ID>
+              <Description>"feedbackAmount"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1EC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>292</ID>
+              <Description>"feedbackFade"</Description>
+              <VariableType>Float</VariableType>
+              <Address>[VVHS]+1F0</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>293</ID>
+          <Description>"Remove VHS Effects"</Description>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : Fears To Fathom - Carson House.exe
+Author : Glowmoss
+}
+
+[ENABLE]
+
+aobscanregion(vhsefft,postVHSPro:FeatureToggle,postVHSPro:FeatureToggle+68,74 ? 49 8B ? 48 8B ? 41)
+alloc(vhsefft_Orig,8)
+
+registersymbol(vhsefft vhsefft_Orig)
+
+vhsefft_Orig:
+  readmem(vhsefft,1)
+
+vhsefft:
+  db EB
+
+[DISABLE]
+
+vhsefft:
+  readmem(vhsefft_Orig,1)
+
+unregistersymbol(*)
+dealloc(*)
+
+{
+// ORIGINAL CODE - INJECTION POINT: postVHSPro:FeatureToggle+20
+
+UnityEngine.Time:get_time+138: F2 0F 11 45 90                 - movsd [rbp-70],xmm0
+UnityEngine.Time:get_time+13d: 48 89 65 B0                    - mov [rbp-50],rsp
+UnityEngine.Time:get_time+141: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+UnityEngine.Time:get_time+146: 49 BB 6B 10 1D A1 40 02 00 00  - mov r11,00000240A11D106B
+UnityEngine.Time:get_time+150: 41 FF D3                       - call r11
+UnityEngine.Time:get_time+153: F2 0F 10 45 90                 - movsd xmm0,[rbp-70]
+UnityEngine.Time:get_time+158: 48 8B C8                       - mov rcx,rax
+UnityEngine.Time:get_time+15b: F2 0F 11 45 98                 - movsd [rbp-68],xmm0
+UnityEngine.Time:get_time+160: 48 8B F9                       - mov rdi,rcx
+UnityEngine.Time:get_time+163: 48 85 C0                       - test rax,rax
+UnityEngine.Time:get_time+166: 75 AA                          - jne UnityEngine.Time:get_time+112
+UnityEngine.Time:get_time+168: E9 69 FF FF FF                 - jmp UnityEngine.Time:get_time+d6
+243C0B94B0D: 00 00                          - add [rax],al
+243C0B94B0F: 00 01                          - add [rcx],al
+243C0B94B11: 04 02                          - add al,02
+243C0B94B13: 05 04 03 01 50                 - add eax,50010304
+243C0B94B18: 00 00                          - add [rax],al
+243C0B94B1A: 00 00                          - add [rax],al
+243C0B94B1C: 00 00                          - add [rax],al
+243C0B94B1E: 00 00                          - add [rax],al
+postVHSPro:FeatureToggle: 55                             - push rbp
+postVHSPro:FeatureToggle+1: 48 8B EC                       - mov rbp,rsp
+postVHSPro:FeatureToggle+4: 48 83 EC 40                    - sub rsp,40
+postVHSPro:FeatureToggle+8: 48 89 75 F0                    - mov [rbp-10],rsi
+postVHSPro:FeatureToggle+c: 4C 89 7D F8                    - mov [rbp-08],r15
+postVHSPro:FeatureToggle+10: 4C 8B FA                       - mov r15,rdx
+postVHSPro:FeatureToggle+13: 4C 89 45 E0                    - mov [rbp-20],r8
+postVHSPro:FeatureToggle+17: 49 8B F1                       - mov rsi,r9
+postVHSPro:FeatureToggle+1a: 0F B6 45 E0                    - movzx eax,byte ptr [rbp-20]
+postVHSPro:FeatureToggle+1e: 85 C0                          - test eax,eax
+// ---------- INJECTING HERE ----------
+postVHSPro:FeatureToggle+20: 74 1B                          - je postVHSPro:FeatureToggle+3d
+// ---------- DONE INJECTING  ----------
+postVHSPro:FeatureToggle+22: 49 8B CF                       - mov rcx,r15
+postVHSPro:FeatureToggle+25: 48 8B D6                       - mov rdx,rsi
+postVHSPro:FeatureToggle+28: 41 83 3F 00                    - cmp dword ptr [r15],00
+postVHSPro:FeatureToggle+2c: 66 90                          - nop 2
+postVHSPro:FeatureToggle+2e: 49 BB 30 32 C4 FD 40 02 00 00  - mov r11,UnityEngine.Material:EnableKeyword
+postVHSPro:FeatureToggle+38: 41 FF D3                       - call r11
+postVHSPro:FeatureToggle+3b: EB 1E                          - jmp postVHSPro:FeatureToggle+5b
+postVHSPro:FeatureToggle+3d: 49 8B CF                       - mov rcx,r15
+postVHSPro:FeatureToggle+40: 48 8B D6                       - mov rdx,rsi
+postVHSPro:FeatureToggle+43: 41 83 3F 00                    - cmp dword ptr [r15],00
+postVHSPro:FeatureToggle+47: 48 8D AD 00 00 00 00           - lea rbp,[rbp+00000000]
+postVHSPro:FeatureToggle+4e: 49 BB A0 33 C4 FD 40 02 00 00  - mov r11,UnityEngine.Material:DisableKeyword
+postVHSPro:FeatureToggle+58: 41 FF D3                       - call r11
+postVHSPro:FeatureToggle+5b: 48 8B 75 F0                    - mov rsi,[rbp-10]
+postVHSPro:FeatureToggle+5f: 4C 8B 7D F8                    - mov r15,[rbp-08]
+postVHSPro:FeatureToggle+63: 48 8D 65 00                    - lea rsp,[rbp+00]
+postVHSPro:FeatureToggle+67: 5D                             - pop rbp
+postVHSPro:FeatureToggle+68: C3                             - ret 
+243C0B94B89: 00 00                          - add [rax],al
+243C0B94B8B: 00 00                          - add [rax],al
+243C0B94B8D: 00 00                          - add [rax],al
+243C0B94B8F: 00 01                          - add [rcx],al
+243C0B94B91: 04 02                          - add al,02
+243C0B94B93: 05 04 03 01 50                 - add eax,50010304
+243C0B94B98: 00 00                          - add [rax],al
+243C0B94B9A: 00 00                          - add [rax],al
+243C0B94B9C: 00 00                          - add [rax],al
+243C0B94B9E: 00 00                          - add [rax],al
+UnityEngine.Material:SetTexture: 55                             - push rbp
+UnityEngine.Material:SetTexture+1: 48 8B EC                       - mov rbp,rsp
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>294</ID>
+          <Description>"Coord"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(PlayerCoord, UnityPlayer.dll,F2 0F ? ? F2 0F ? ? ? F2 44 ? ? ? ? 48 8B)
+alloc(newmem,128,PlayerCoord)
+
+registersymbol(PlayerCoord PlayerCoordOrig p_coord)
+label(return PlayerCoordOrig p_coord)
+
+
+newmem:
+  mov [p_coord],rax
+PlayerCoordOrig:
+  readmem(PlayerCoord,9)
+  jmp return
+
+p_coord:
+  dq 0
+
+PlayerCoord:
+  jmp newmem
+  db 90 90 90 90
+return:
+
+
+[DISABLE]
+
+PlayerCoord:
+  readmem(PlayerCoordOrig,9)
+
+unregistersymbol(*)
+dealloc(*)
+
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>295</ID>
+              <Description>"X"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Double</VariableType>
+              <Address>p_coord</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>296</ID>
+              <Description>"Y"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Double</VariableType>
+              <Address>p_coord</Address>
+              <Offsets>
+                <Offset>8</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>297</ID>
+              <Description>"Z"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Double</VariableType>
+              <Address>p_coord</Address>
+              <Offsets>
+                <Offset>10</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>298</ID>
+              <Description>"Fly"</Description>
+              <LastState/>
+              <Color>008000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+  Author : Glowmoss
+}
+
+{$lua}
+if syntaxcheck then return end
+
+[ENABLE]
+
+Coords = getAddressSafe("[p_coord]")
+local s=AllocateMemory(0x8)
+RegisterSymbol('FS',s)
+FT=getAddressSafe("FS")
+writeDouble(FT,0.4)
+FT=readDouble('FS')
+
+function checkKeys()
+
+  if isKeyPressed(VK_NUMPAD8) then writeDouble(Coords+0x10, readDouble(Coords+0x10)+FT) end
+
+  if isKeyPressed(VK_NUMPAD5) then writeDouble(Coords+0x10, readDouble(Coords+0x10)-FT) end
+
+  if isKeyPressed(VK_NUMPAD7) then writeDouble(Coords+0x8, readDouble(Coords+0x8)+FT) end
+
+  if isKeyPressed(VK_NUMPAD9) then writeDouble(Coords+0x8, readDouble(Coords+0x8)-FT) end
+
+  if isKeyPressed(VK_NUMPAD6) then writeDouble(Coords, readDouble(Coords)+FT) end
+
+  if isKeyPressed(VK_NUMPAD4) then writeDouble(Coords, readDouble(Coords)-FT) end
+end
+
+function PCL()
+  while PCLR == true
+  do
+    checkKeys()
+    sleep(1)
+  end
+end
+
+PCLR = true
+PCLThr = createThread(PCL)
+
+[DISABLE]
+
+PCLR = false
+PCLThr = nil
+
+
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>299</ID>
+                  <Description>"Fly Speed"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Double</VariableType>
+                  <Address>FS</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
