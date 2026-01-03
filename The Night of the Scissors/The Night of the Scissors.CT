@@ -2,11 +2,27 @@
 <CheatTable CheatEngineTableVersion="46">
   <CheatEntries>
     <CheatEntry>
-      <ID>0</ID>
-      <Description>"Remove Chromatic"</Description>
+      <ID>172</ID>
+      <Description>"Enable"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
       <LastState/>
+      <Color>008000</Color>
       <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{Game  : The Night of the Scissors.exe
+      <AssemblerScript>{$lua}
+if syntaxcheck then return end
+
+[ENABLE]
+mono_initialize()
+LaunchMonoDataCollector()
+[DISABLE]
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>0</ID>
+          <Description>"Remove Chromatic"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : The Night of the Scissors.exe
 Author : Glowmoss
 }
 
@@ -111,13 +127,13 @@ Tnots.ChromaticAberration:OnRenderImage+88: 89 1C 24                 - mov [esp]
 Tnots.ChromaticAberration:OnRenderImage+8b: E8 78 FA FF FF           - call Tnots.PostProcess:get_Material
 }
 </AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>1</ID>
-      <Description>"Remove Noise"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{Game  : The Night of the Scissors.exe
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Remove Noise"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : The Night of the Scissors.exe
 Author : Glowmoss
 }
 
@@ -223,13 +239,13 @@ Tnots.VHSPostProcessEffect:OnRenderImage+14: 89 45 F4                 - mov [ebp
 Tnots.VHSPostProcessEffect:OnRenderImage+17: 8B 43 18                 - mov eax,[ebx+18]
 }
 </AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>2</ID>
-      <Description>"Remove VHS Effect"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{Game  : The Night of the Scissors.exe
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"Remove VHS Effect"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : The Night of the Scissors.exe
 Author : Glowmoss
 }
 
@@ -334,13 +350,13 @@ UnityEngine.Video.VideoPlayer:get_texture: 55                       - push ebp
 UnityEngine.Video.VideoPlayer:get_texture+1: 8B EC                    - mov ebp,esp
 }
 </AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>3</ID>
-      <Description>"Remove Glitch Effect"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{Game  : The Night of the Scissors.exe
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Remove Glitch Effect"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : The Night of the Scissors.exe
 Author : Glowmoss
 }
 
@@ -433,13 +449,13 @@ Tnots.GlitchEffect:OnRenderImage+6f: 89 04 24                 - mov [esp],eax
 Tnots.GlitchEffect:OnRenderImage+72: 39 00                    - cmp [eax],eax
 }
 </AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>4</ID>
-      <Description>"Remove Distortion (usually in chases)"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{Game  : The Night of the Scissors.exe
+        </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"Remove Distortion (usually in chases)"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : The Night of the Scissors.exe
 Author : Glowmoss
 }
 
@@ -545,13 +561,13 @@ Tnots.Distortion:OnRenderImage+8f: 89 04 24                 - mov [esp],eax
 Tnots.Distortion:OnRenderImage+92: 39 00                    - cmp [eax],eax
 }
 </AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>5</ID>
-      <Description>"Sharpness"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{Game  : The Night of the Scissors.exe
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"Sharpness"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : The Night of the Scissors.exe
 Author : Glowmoss
 }
 
@@ -656,21 +672,21 @@ Tnots.ChromaticAberration:OnRenderImage+f: E8 F4 FA FF FF           - call Tnots
 Tnots.ChromaticAberration:OnRenderImage+14: D9 05 70 F1 0E 1F        - fld dword ptr [1F0EF170]
 }
 </AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>6</ID>
-          <Description>"Value (default = 1)"</Description>
-          <VariableType>Float</VariableType>
-          <Address>SHP</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>6</ID>
+              <Description>"Value (default = 1)"</Description>
+              <VariableType>Float</VariableType>
+              <Address>SHP</Address>
+            </CheatEntry>
+          </CheatEntries>
         </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>7</ID>
-      <Description>"Force Halloween event"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{Game  : The Night of the Scissors.exe
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"Force Halloween event"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : The Night of the Scissors.exe
 Author : Glowmoss
 }
 
@@ -771,13 +787,13 @@ UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+38: 0F B6 C0     
 UnityEngine.InputSystem.Controls.AxisControl:EvaluateMagnitude+3b: 85 C0              - test eax,eax
 }
 </AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>8</ID>
-      <Description>"No DMG (This will help unlock the no dmg achievement)"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{Game  : The Night of the Scissors.exe
+        </CheatEntry>
+        <CheatEntry>
+          <ID>8</ID>
+          <Description>"No DMG (This will help unlock the no dmg achievement)"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : The Night of the Scissors.exe
 Author : Glowmoss
 }
 
@@ -870,13 +886,13 @@ Tnots.PlayerController:TakeDamage+4a: 8D 65 FC                 - lea esp,[ebp-04
 Tnots.PlayerController:TakeDamage+4d: 8D 65 FC                 - lea esp,[ebp-04]
 }
 </AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>9</ID>
-      <Description>"Freeze Killer"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{Game  : The Night of the Scissors.exe
+        </CheatEntry>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"Freeze Killer"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{Game  : The Night of the Scissors.exe
 Author : Glowmoss
 }
 
@@ -969,6 +985,8 @@ Tnots.EnemyController:HandleChasingState+5f: 89 04 24           - mov [esp],eax
 Tnots.EnemyController:HandleChasingState+62: 39 00              - cmp [eax],eax
 }
 </AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
